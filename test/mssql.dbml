@@ -1,0 +1,651 @@
+Project NBTC_VDO_WALL {
+  database_type: 'MSSQL'
+  Note: '''
+    # NBTC_VDO_WALL Database
+    **markdown content here**
+  '''
+}
+
+Table "dbo"."Area_Province" {
+  "id" int [not null, increment,note: 'ID ของจังหวัดภายในแต่ละเขตของกสทช.']
+  "area_id" int [not null,note: 'ID ของเขตในกสทช. (FK)']
+  "geography_id" int [not null,note: 'ID รหัสภูมิภาคประเทศ (FK)']
+  "province_id" int [not null,note: 'ID รหัสจังหวัด (FK)']
+  "is_office" bit [not null,note: 'เป็นที่ตั้งสำนักงานเขต?']
+  "created_by" nvarchar(50) [note: 'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime [note: 'วันที่ที่สร้างข้อมูล']
+  "modifed_by" nvarchar(50) [note: 'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime [note: 'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [note: 'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime [note: 'วันที่ที่ลบข้อมูล']
+  "status" varchar(1) [not null,note: 'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Disturbance_Report" {
+  "id" bigint [not null, increment]
+  "region_id" int [not null]
+  "area_id" int [not null]
+  "person_responsible" nvarchar(50)
+  "report_year" int
+  "report_month" int
+  "quarter" int
+  "agency_name" nvarchar(50)
+  "received_date" datetime
+  "received_no" nvarchar(50)
+  "business_type_id" int [not null]
+  "business_type_name" nvarchar(100)
+  "disturbance_type_id" int
+  "disturbance_type_name" nvarchar(100)
+  "description" ntext
+  "site_code" nvarchar(20)
+  "latitude" nvarchar(20)
+  "longitude" nvarchar(20)
+  "sub_district_id" int
+  "sub_district_name" nvarchar(50)
+  "district_id" int
+  "district_name" nvarchar(50)
+  "province_id" int
+  "province_name" nvarchar(50)
+  "cause_of_disturbance" ntext
+  "frequency" int
+  "disturbance_status_id" int [not null]
+  "cloesd_no" nvarchar(20)
+  "closed_date" datetime
+  "duration" int
+  "closed_description" ntext
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modified_by" nvarchar(50)
+  "modified_date" datetime
+  "status" varchar(1)
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."EMF_Measurement_Report" {
+  "id" bigint [not null, increment]
+  "report_year" int [not null]
+  "report_month" int [not null]
+  "report_date" int [not null]
+  "quarter" int [not null]
+  "selection" nvarchar(100)
+  "measured_time" datetime
+  "service_name" nvarchar(50)
+  "start_Hz" int
+  "stop_Hz" int
+  "original_file_name" nvarchar(100)
+  "new_file_name" nvarchar(100)
+  "files_path" nvarchar(500)
+  "created_date" datetime
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."EMF_Measurement_Report_Detail" {
+  "id" bigint [not null, increment]
+  "emf_measurement_report_id" bigint [not null]
+  "max_V/m" decimal(20,2)
+  "avg_V/m" decimal(20,2)
+  "rms_V/m" decimal(20,2)
+  "limit_V/m" decimal(20,2)
+  "max_percent" decimal(20,2)
+  "avg_percent" decimal(20,2)
+  "rms_percent" decimal(20,2)
+  "max_mA/m" decimal(20,2)
+  "avg_mA/m" decimal(20,2)
+  "rms_mA/m" decimal(20,2)
+  "max_mW/m" decimal(20,2)
+  "avg_mW/m" decimal(20,2)
+  "rms_mW/m" decimal(20,2)
+  "created_date" datetime
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Health_Safety_Test_Plan" {
+  "id" bigint [not null, increment]
+  "region_id" int [not null]
+  "area_id" int [not null]
+  "report_year" int [not null]
+  "description" nvarchar(50)
+  "actual_01" int
+  "result_01" int
+  "actual_02" int
+  "result_02" int
+  "actual_03" int
+  "result_03" int
+  "actual_04" int
+  "result_04" int
+  "actual_05" int
+  "result_05" int
+  "actual_06" int
+  "result_06" int
+  "actual_07" int
+  "result_07" int
+  "actual_08" int
+  "result_08" int
+  "actual_09" int
+  "result_09" int
+  "actual_10" int
+  "result_10" int
+  "actual_11" int
+  "result_11" int
+  "actual_12" int
+  "result_12" int
+  "original_file_name" nvarchar(100)
+  "new_file_name" nvarchar(100)
+  "file_path" nvarchar(500)
+  "created_by" nvarchar(50)
+  "created_date" int
+  "modified_by" nvarchar(50)
+  "modified_date" int
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Area" {
+  "id" int [not null, increment]
+  "region_id" int [not null]
+  "name_th" nvarchar(50) [not null]
+  "name_en" nvarchar(50)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Broadcast_Station" {
+  "id" bigint [not null, increment]
+  "chk_ID" int
+  "transaction_date" datetime
+  "checked_date" datetime
+  "region_id" uniqueidentifier
+  "region_name" nvarchar(50)
+  "area_id" uniqueidentifier
+  "area_name" nvarchar(50)
+  "station" nvarchar(50)
+  "station_type_id" uniqueidentifier
+  "station_type_name" nvarchar(50)
+  "station_code" nvarchar(10)
+  "station_name" nvarchar(100)
+  "frequency" decimal(10,4)
+  "license_no" nvarchar(20)
+  "province_id" uniqueidentifier
+  "province_name" nvarchar(50)
+  "district_id" uniqueidentifier
+  "district_name" nvarchar(50)
+  "sub_district_id" uniqueidentifier
+  "sub_district_name" nvarchar(50)
+  "address" nvarchar(500)
+  "latitude" nvarchar(20)
+  "longitude" nvarchar(20)
+  "tested_result" ntext
+  "station_status" nvarchar(50)
+  "broadcase_start_time" time
+  "broadcast_end_time" time
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Business_Type" {
+  "id" int [not null, increment]
+  "name_th" nvarchar(100) [not null]
+  "name_en" nvarchar(100)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Company_Type" {
+  "id" int [not null, increment]
+  "name_th" nvarchar(100) [not null]
+  "name_en" nvarchar(100)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_District" {
+  "id" int [not null, increment]
+  "province_id" int [not null]
+  "name_th" nvarchar(50) [not null]
+  "name_en" nvarchar(50)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Disturbance_Status" {
+  "id" int [not null, increment]
+  "name_th" nvarchar(100) [not null]
+  "name_en" nvarchar(100)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Disturbance_Type" {
+  "id" int [not null, increment]
+  "name_th" nvarchar(100) [not null]
+  "name_en" nvarchar(100)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Geography" {
+  "id" int [not null, increment]
+  "name_th" nvarchar(50) [not null]
+  "name_en" nvarchar(50)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_License_Type" {
+  "id" int [not null, increment]
+  "name_th" nvarchar(100) [not null]
+  "name_en" nvarchar(100)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Other_Station" {
+  "id" bigint [not null, increment]
+  "owner_type_id" uniqueidentifier
+  "owner_type_name" nvarchar(100)
+  "region_id" uniqueidentifier
+  "region_name" nvarchar(50)
+  "area_id" uniqueidentifier
+  "area_name" nvarchar(50)
+  "station_type_id" uniqueidentifier
+  "station_type_name" nvarchar(50)
+  "station_code" nvarchar(10)
+  "station_name" nvarchar(100)
+  "frequency" nvarchar(50)
+  "ฺbusiness_name" nvarchar(255)
+  "company_type_id" uniqueidentifier
+  "company_type_name" nvarchar(100)
+  "license_type_id" uniqueidentifier
+  "license_type_name" nvarchar(100)
+  "license_no" nvarchar(20)
+  "license_date" datetime
+  "province_id" uniqueidentifier
+  "province_name" nvarchar(50)
+  "district_id" uniqueidentifier
+  "district_name" nvarchar(50)
+  "sub_district_id" uniqueidentifier
+  "sub_district_name" nvarchar(50)
+  "address" nvarchar(500)
+  "latitude" nvarchar(20)
+  "longitude" nvarchar(20)
+  "contract_name" nvarchar(100)
+  "contract_telephone" nvarchar(50)
+  "altitude_above_sea_level" int
+  "aerial_type" nvarchar(100)
+  "expansion_rate_of_aerial" decimal(10,2)
+  "sending" int
+  "HeightOfAerial" int
+  "TestOfFrequency" decimal(10,4)
+  "broadcast_start_time" time
+  "broadcast_end_time" time
+  "CreatedBy" nvarchar(50)
+  "CreatedDate" datetime
+  "ModifedBy" nvarchar(50)
+  "ModifiedDate" datetime
+  "DeletedBy" nvarchar(50)
+  "DeletedDate" datetime
+  "Status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Owner_Type" {
+  "id" int [not null, increment]
+  "name_th" nvarchar(100) [not null]
+  "name_en" nvarchar(100)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Province" {
+  "id" int [not null, increment]
+  "geography_id" int [not null]
+  "name_th" nvarchar(50) [not null]
+  "name_en" nvarchar(50)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Radio_Station" {
+  "id" int [not null, increment]
+  "name_th" nvarchar(50) [not null]
+  "name_en" nvarchar(50)
+  "station_unit" nvarchar(10) [not null]
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Region" {
+  "id" int [not null, increment]
+  "name_th" nvarchar(50) [not null]
+  "name_en" nvarchar(50)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Station_Type" {
+  "id" int [not null, increment]
+  "name_th" nvarchar(100) [not null]
+  "name_en" nvarchar(100)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Sub_District" {
+  "id" int [not null, increment]
+  "province_id" int [not null]
+  "district_id" int [not null]
+  "name_th" nvarchar(50) [not null]
+  "name_en" nvarchar(50)
+  "post_code" varchar(5)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Zipcode" {
+  "id" int [not null, increment]
+  "province_id" int [not null]
+  "district_id" int [not null]
+  "sub_district_id" int [not null]
+  "code" varchar(5)
+  "created_by" nvarchar(50)
+  "created_date" datetime
+  "modifed_by" nvarchar(50)
+  "modified_date" datetime
+  "deleted_by" nvarchar(50)
+  "deleted_date" datetime
+  "status" varchar(1) [not null]
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Radio_Emission_Test_Plan" {
+  "id" bigint [not null, increment]
+  "region_id" int [not null]
+  "area_id" int [not null]
+  "report_year" int [not null]
+  "radio_station_id" int [not null]
+  "actual_01" int
+  "result_01" int
+  "actual_02" int
+  "result_02" int
+  "actual_03" int
+  "result_03" int
+  "actual_04" int
+  "result_04" int
+  "actual_05" int
+  "result_05" int
+  "actual_06" int
+  "result_06" int
+  "actual_07" int
+  "result_07" int
+  "actual_08" int
+  "result_08" int
+  "actual_09" int
+  "result_09" int
+  "actual_10" int
+  "result_10" int
+  "actual_11" int
+  "result_11" int
+  "actual_12" int
+  "result_12" int
+  "original_file_name" nvarchar(100)
+  "new_file_name" nvarchar(100)
+  "file_path" nvarchar(500)
+  "created_by" nvarchar(50)
+  "created_date" int
+  "modified_by" nvarchar(50)
+  "modified_date" int
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."TCI_Occupancy_Report" {
+  "id" bigint [not null, increment]
+  "report_year" int [not null]
+  "report_month" int [not null]
+  "report_date" int [not null]
+  "quarter" int [not null]
+  "task_id" int
+  "storage_interval" nvarchar(20)
+  "operator_id" nvarchar(100)
+  "message_length" int
+  "start_time" datetime
+  "stop_time" datetime
+  "threshold_method" nvarchar(100)
+  "duration" nvarchar(100)
+  "station_name" nvarchar(100)
+  "all_single_channels" char(1)
+  "latitude" nvarchar(20)
+  "longitude" nvarchar(20)
+  "antenna" nvarchar(50)
+  "polarization" nvarchar(20)
+  "original_file_name" nvarchar(100)
+  "new_file_name" nvarchar(100)
+  "files_path" nvarchar(500)
+  "created_date" datetime
+
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."TCI_Occupancy_Report_Detail" {
+  "id" bigint [not null, increment]
+  "tci_occupancy_report_id" bigint [not null]
+  "band" int
+  "start_frequency_MHz" int
+  "stop_frequency_MHz" int
+  "bandwidth_kHz" decimal(20,2)
+  "channel_no" int
+  "frequency_MHz" decimal(20,4)
+  "maximum_occupancy_percent" int
+  "average_occupancy_percent" int
+  "maximum_field_strength_dBuV/m" int
+  "average_field_strength_dBuV/m" int
+  "created_date" datetime
+
+Indexes {
+  id [pk]
+}
+}
+
+Ref "FKHealth_Saf953904":"dbo"."Info_Area"."id" < "dbo"."Health_Safety_Test_Plan"."area_id"
+
+Ref "FKHealth_Saf855281":"dbo"."Info_Region"."id" < "dbo"."Health_Safety_Test_Plan"."region_id"
+
+Ref "FKRadio_Emis890179":"dbo"."Info_Area"."id" < "dbo"."Radio_Emission_Test_Plan"."area_id"
+
+Ref "FKRadio_Emis80993":"dbo"."Info_Region"."id" < "dbo"."Radio_Emission_Test_Plan"."region_id"
+
+Ref "FKRadio_Emis238262":"dbo"."Info_Radio_Station"."id" < "dbo"."Radio_Emission_Test_Plan"."radio_station_id"
+
+Ref "FKInfo_Zipco299713":"dbo"."Info_Province"."id" < "dbo"."Info_Zipcode"."province_id"
+
+Ref "FKInfo_Zipco255546":"dbo"."Info_District"."id" < "dbo"."Info_Zipcode"."district_id"
+
+Ref "FKArea_Provi574106":"dbo"."Info_Geography"."id" < "dbo"."Area_Province"."geography_id"
+
+Ref "FKInfo_Sub_D858503":"dbo"."Info_Province"."id" < "dbo"."Info_Sub_District"."province_id"
+
+Ref "FKInfo_Zipco177048":"dbo"."Info_Sub_District"."id" < "dbo"."Info_Zipcode"."sub_district_id" [update: cascade]
+
+Ref "FKDisturbanc342409":"dbo"."Info_Business_Type"."id" < "dbo"."Disturbance_Report"."business_type_id"
+
+Ref "FKDisturbanc708223":"dbo"."Info_Disturbance_Status"."id" < "dbo"."Disturbance_Report"."disturbance_status_id"
+
+Ref "FKInfo_Sub_D902670":"dbo"."Info_District"."id" < "dbo"."Info_Sub_District"."district_id" [update: cascade]
+
+Ref "FKInfo_Distr360426":"dbo"."Info_Province"."id" < "dbo"."Info_District"."province_id" [update: cascade]
+
+Ref "FKInfo_Provi333697":"dbo"."Info_Geography"."id" < "dbo"."Info_Province"."geography_id" [update: cascade]
+
+Ref "FKArea_Provi922664":"dbo"."Info_Province"."id" < "dbo"."Area_Province"."province_id" [update: cascade]
+
+Ref "FKArea_Provi893606":"dbo"."Info_Area"."id" < "dbo"."Area_Province"."area_id"
+
+Ref "FKDisturbanc670568":"dbo"."Info_Region"."id" < "dbo"."Disturbance_Report"."region_id"
+
+Ref "FKInfo_Area396653":"dbo"."Info_Region"."id" < "dbo"."Info_Area"."region_id"
+
+Ref "FKDisturbanc861381":"dbo"."Info_Area"."id" < "dbo"."Disturbance_Report"."area_id"
+
+Ref "FKEMF_Measur160831":"dbo"."EMF_Measurement_Report"."id" < "dbo"."EMF_Measurement_Report_Detail"."emf_measurement_report_id"
+
+Ref "FKTCI_Occupa427123":"dbo"."TCI_Occupancy_Report"."id" < "dbo"."TCI_Occupancy_Report_Detail"."tci_occupancy_report_id"

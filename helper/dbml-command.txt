@@ -1,0 +1,58 @@
+--https://dbml.dbdiagram.io/cli/#installation
+
+First-Step-Installation
+npm install -g @dbml/cli
+# or if you're using yarn
+yarn global add @dbml/cli
+
+Convert a DBML file to SQL
+Generated SQL dump file (MSSQL): schemaName.sql
+#Syntax Manual
+$ dbml2sql <path-to-dbml-file>
+           [--mysql|--postgres|--mssql]
+           [-o|--out-file <output-filepath>]
+Example command ->> dbml2sql .\db\mssql.dbml -o.\db\mssql.sql --mssql
+
+--https://dbdocs.io/docs#4-generate-dbdocs-view
+
+1. Install dbdocs via terminal
+Run the following command in the terminal:
+
+npm install -g dbdocs
+Or if you're using yarn
+yarn global add dbdocs
+
+2. Define your database with DBML
+create a file named database.dbml as below.
+Project Ecommerce {
+  database_type: 'PostgreSQL'
+  Note: '''
+    # Ecommerce Database
+    **markdown content here**
+  '''
+}
+Table users as U {
+  id int [pk, increment]
+  full_name varchar
+  created_at timestamp
+  country_code int
+  note: "table 'users' contains user information"
+}
+
+3. Login to dbdocs
+$ dbdocs login
+? Choose a login method: Email
+? Your email: <your email address>
+✔ Request email authentication
+? Please input OTP code sent to the email:
+
+4. Generate dbdocs view
+$ dbdocs build <path to your dbml file>/database.dbml
+Pushing new database schema to project your_project...
+
+5. Check your database documentation!
+The last step provides you with a link to visit your database documentation. In our example
+
+6.Remove your project
+$ dbdocs remove <project name>
+✔ Removed successfully

@@ -56,3 +56,5 @@ The last step provides you with a link to visit your database documentation. In 
 6.Remove your project
 $ dbdocs remove <project name>
 ✔ Removed successfully
+
+ึ7.dbdocs password --set <your-password> --project <your-project>

@@ -32,7 +32,7 @@ Table "dbo"."Disturbance_Report" {
   "person_responsible" nvarchar(50) [note:'ชื่อของผู้รับผิดชอบ']
   "report_year" int [note:'ปีของข้อมูลการรบกวน']
   "report_month" int [note:'เดือนของข้อมูลการรบกวน']
-  "quarter" int [note:'ไตรมาสของข้อมูลการรบกวน']
+  "report_quarter" int [note:'ไตรมาสของข้อมูลการรบกวน']
   "agency_name" nvarchar(50) [note:'ชื่อของหน่วยงาน']
   "received_date" datetime [note:'วันที่หนังสือ']
   "received_no" nvarchar(50) [note:'เลขที่หนังสือ']
@@ -73,7 +73,7 @@ Table "dbo"."EMF_Measurement_Report" {
   "report_year" int [not null,note:'ปีของข้อมูลการตรวจวัด']
   "report_month" int [not null,note:'เดือนของข้อมูลการตรวจวัด']
   "report_date" int [not null,note:'วันที่ของข้อมูลการตรวจวัด']
-  "quarter" int [not null,note:'ไตรมาสของข้อมูลการตรวจวัด']
+  "report_quarter" int [not null,note:'ไตรมาสของข้อมูลการตรวจวัด']
   "selection" nvarchar(100) [note:'']
   "measured_time" datetime [note:'ชื่อ Service ของข้อมูลการตรวจวัด']
   "service_name" nvarchar(50) [note:'ความถี่ (Hz) เริ่มต้นที่ทำการตรวจวัด']
@@ -250,10 +250,12 @@ Indexes {
 }
 
 Table "dbo"."Info_District" {
-  "id" int [not null, increment,note:'ID. ของอำเภอ / เขต']
+  "id" int [not null,note:'ID. ของอำเภอ / เขต']
   "province_id" int [not null,note:'ID. ของจังหวัด (FK.)']
   "name_th" nvarchar(50) [not null,note:'ชื่อภาษาไทยของอำเภอ / เขต']
   "name_en" nvarchar(50) [note:'ชื่อภาษาอังกฤษของอำเภอ / เขต']
+  "sort_order_th" int [null,note:'ลำดับในการเรียงตามตัวอักษรภาษาไทย']
+  "sort_order_en" int [null,note:'ลำดับในการเรียงตามตัวอักษรภาษาอังกฤษ']
   "created_by" nvarchar(50) [note:'ชื่อของผู้สร้างข้อมูล']
   "created_date" datetime [note:'วันที่ที่สร้างข้อมูล']
   "modified_by" nvarchar(50) [note:'ชื่อของผู้ปรับปรุงข้อมูล']
@@ -302,9 +304,9 @@ Indexes {
 }
 
 Table "dbo"."Info_Geography" {
-  "id" int [not null, increment,note:'ID. ของภาคในกสทช.']
-  "name_th" nvarchar(50) [not null,note:'ชื่อภาษาไทยของภาคในกสทช.']
-  "name_en" nvarchar(50) [note:'ชื่อภาษาอังกฤษของภาคในกสทช.']
+  "id" int [not null, increment,note:'ID. ของภาคในประเทศ']
+  "name_th" nvarchar(50) [not null,note:'ชื่อภาษาไทยของภาคในประเทศ']
+  "name_en" nvarchar(50) [note:'ชื่อภาษาอังกฤษของภาคในประเทศ']
   "created_by" nvarchar(50) [note:'ชื่อของผู้สร้างข้อมูล']
   "created_date" datetime [note:'วันที่ที่สร้างข้อมูล']
   "modified_by" nvarchar(50) [note:'ชื่อของผู้ปรับปรุงข้อมูล']
@@ -370,16 +372,16 @@ Table "dbo"."Info_Other_Station" {
   "aerial_type" nvarchar(100) [not null,note:'ชนิดสายอากาศ']
   "expansion_rate_of_aerial" decimal(10,2) [not null,note:'อัตราการขยายเสาอากาศ (DBI)']
   "sending" int [not null,note:'กำลังส่ง (W)']
-  "HeightOfAerial" int [not null,note:'ความสูงของเสาอากาศ (M)']
-  "TestOfFrequency" decimal(10,4) [not null,note:'ความถี่ที่วัดได้ (MHz)']
+  "height_of_aerial" int [not null,note:'ความสูงของเสาอากาศ (M)']
+  "test_of_frequency" decimal(10,4) [not null,note:'ความถี่ที่วัดได้ (MHz)']
   "broadcast_start_time" time [not null,note:'ระยะเวลาเริ่มต้นการออกอากาศ']
   "broadcast_end_time" time [not null,note:'ระยะเวลาสิ้นสุดการออกอากาศ']
-  "CreatedBy" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
-  "CreatedDate" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  "ModifedBy" nvarchar(50) [not null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "ModifiedDate" datetime [not null,note:'วันที่ที่ปรับปรุงข้อมูล']
-  "DeletedBy" nvarchar(50) [not null,note:'ชื่อของผู้บข้อมูล']
-  "DeletedDate" datetime [not null,note:'วันที่ที่ลบข้อมูล']
+  "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [not null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime [not null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [not null,note:'ชื่อของผู้บข้อมูล']
+  "deleted_date" datetime [not null,note:'วันที่ที่ลบข้อมูล']
   "Status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
 
 Indexes {
@@ -405,10 +407,12 @@ Indexes {
 }
 
 Table "dbo"."Info_Province" {
-  "id" int [not null, increment,note:'ID. ของจังหวัด']
+  "id" int [not null,note:'ID. ของจังหวัด']
   "geography_id" int [not null,note:'ID. ของภูมิภาค (FK.)']
   "name_th" nvarchar(50) [not null,note:'ชื่อภาษาไทยของจังหวัด']
   "name_en" nvarchar(50) [not null,note:'ชื่อภาษาอังกฤษของจังหวัด']
+  "sort_order_th" int [null,note:'ลำดับในการเรียงตามตัวอักษรภาษาไทย']
+  "sort_order_en" int [null,note:'ลำดับในการเรียงตามตัวอักษรภาษาอังกฤษ']
   "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
   "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
   "modified_by" nvarchar(50) [not null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
@@ -475,12 +479,13 @@ Indexes {
 }
 
 Table "dbo"."Info_Sub_District" {
-  "id" int [not null, increment,note:'ID. ของตำบล / แขวง']
+  "id" int [not null,note:'ID. ของตำบล / แขวง']
   "province_id" int [not null,note:'ID. ของจังหวัด (FK.)']
   "district_id" int [not null,note:'ID. ของอำเภอ / เขต (FK.)']
   "name_th" nvarchar(50) [not null,note:'ชื่อภาษาไทยของตำบล / แขวง']
   "name_en" nvarchar(50) [not null,note:'ชื่อภาษาอังกฤษของตำบล / แขวง']
-  //"post_code" varchar(5) [not null,note:'รหัสไปรษณีย์']
+  "sort_order_th" int [null,note:'ลำดับในการเรียงตามตัวอักษรภาษาไทย']
+  "sort_order_en" int [null,note:'ลำดับในการเรียงตามตัวอักษรภาษาอังกฤษ']
   "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
   "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
   "modified_by" nvarchar(50) [not null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
@@ -561,7 +566,7 @@ Table "dbo"."TCI_Occupancy_Report" {
   "report_year" int [not null,note:'ปีของข้อมูลการครอบครอง']
   "report_month" int [not null,note:'เดือนของข้อมูลการครอบครอง']
   "report_date" int [not null,note:'วันที่ของข้อมูลการครอบครอง']
-  "quarter" int [not null,note:'ไตรมาสของข้อมูลการครอบครอง']
+  "report_quarter" int [not null,note:'ไตรมาสของข้อมูลการครอบครอง']
   "task_id" int [not null,note:'ค่า TaskID ของข้อมูลการครอบครอง']
   "storage_interval" nvarchar(20) [not null,note:'ค่า Storeage Interval ของข้อมูลการครอบครอง']
   "operator_id" nvarchar(100) [not null,note:'ค่า Operator ID. ของข้อมูลการครอบครอง']

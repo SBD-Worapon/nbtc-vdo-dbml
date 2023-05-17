@@ -1,8 +1,8 @@
 Project NBTC_VDO_WALL {
   database_type: 'MSSQL'
-  Note: '''
-    # NBTC_VDO_WALL Database
-    **markdown content here**
+  Note: '''Design for Microsoft SQL Server'
+    # 
+    **Version 1.0.1**
   '''
 }
 

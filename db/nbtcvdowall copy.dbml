@@ -481,24 +481,6 @@ Indexes {
 }
 }
 
-Table "dbo"."Info_Station_SubType" {
-  "id" int [not null, increment,note:'ID. ของประเภทสถานีย่อย']
-  "station_type_id" int [not null,note:'ID. ของประเภทสถานี']
-  "name_th" nvarchar(100) [not null,note:'ชื่อภาษาไทยของประเภทสถานี']
-  "name_en" nvarchar(100) [not null,note:'ชื่อภาษาอังกฤษของประเภทสถานี']
-  "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [not null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [not null,note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [not null,note:'ชื่อของผู้บข้อมูล']
-  "deleted_date" datetime [not null,note:'วันที่ที่ลบข้อมูล']
-  "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
-   note:"ตารางเก็บข้อมูลประเภทสถานี"
-Indexes {
-  id [pk]
-}
-}
-
 Table "dbo"."Info_Sub_District" {
   "id" int [not null,note:'ID. ของตำบล / แขวง']
   "province_id" int [not null,note:'ID. ของจังหวัด (FK.)']
@@ -544,7 +526,7 @@ Table "dbo"."Radio_Emission_Test_Plan" {
   "region_id" int [not null,note:'ID. ของ Region (FK.)']
   "area_id" int [not null,note:'ID. ของ Area (FK.)']
   "report_year" int [not null,note:'ปีของข้อมูลแผนการดำเนินการ']
-  "station_type_id" int [not null,note:'ID. ของ Info_Station_Type (FK.)']
+  "radio_station_id" int [not null,note:'ID. ของ Radion_Station (FK.)']
   "actual_01" int [null,note:'แผนการทดสอบเดือน ม.ค.']
   "result_01" int [null,note:'ผลการทดสอบเดือน ม.ค.']
   "actual_02" int [null,note:'แผนการทดสอบเดือน ก.พ.']
@@ -632,99 +614,6 @@ Indexes {
 }
 }
 
-Table "dbo"."Frequency_Emission_Report" {
-  "id" int [not null, increment,note:'ID. ของ Frequency_Emission_Report']
-  "chkid" int [not null,note:'ID การตรวจสอบของ oper fieldname ChkID']
-  "add_date" datetime [note:'วันที่บันทึกจาก oper fieldname DtAdd']
-  "chk_date" datetime [note:'วันที่ตรวจสอบจาก oper fieldname DtTest']
-  "region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
-  "area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
-  "station_type_id" int [not null,note:'ID. ของ Info_Station_Type (FK.)']
-  "stn_type" nvarchar(250) [null,note:'สถานี oper fieldname StnType']
-  "station_subtype_id" int [not null,note:'ID. ของ Info_Station_SubType (FK.)']
-  "stn_subtype" nvarchar(250) [null,note:'ประเภทสถานี oper fieldname StnSubType']
-  "stn_code" nvarchar(250) [null,note:'รหัสสถานี oper fieldname StnCode']
-  "station_name" nvarchar(250) [null,note:'ชื่อสถานี  oper fieldname StaNaG' ]
-  "frequency_MHz" nvarchar(50) [null,note:'ความถี่ oper fieldname FreqMhzG']
-  "stn_license" nvarchar(50) [null,note:'เลขที่ใบอนุญาต oper fieldname StaNoG']
-  "province" nvarchar(200) [null,note:'ชื่อจังหวัด oper fieldname Province']
-  "aumphoe" nvarchar(200) [null,note:'ชื่ออำเภอ oper fieldname Aumphoe']
-  "tambol" nvarchar(200) [null,note:'ชื่อตำบล oper fieldname Tambol']
-  "sta_locg" nvarchar(450) [null,note:'ที่ตั้งสถานี oper fieldname StaLocG']
-  "opinion_det" nvarchar(250) [null,note:'ผลการตรวจสอบ oper fieldname OpinionDet']
-  "equ_name" nvarchar(max) [null,note:'เครื่องมือวัด oper fieldname EquNames']
-  "docnfno_disp" nvarchar(250) [null,note:'หนังสือแจ้งเตือน oper fieldname DocNFNo_Disp ']
-  "docnfno_date" nvarchar(250) [null,note:'หนังสือแจ้งเตือนวันที่ oper fieldname DtDocNF_Disp']
-  "approve_status" nvarchar(11) [null,note:'สถานะ oper fieldname ApvStatus']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  note:"ตารางเก็บข้อมูลการตรวจสอบมาตรฐานการแพร่ [ข้อมูลจาก oper Table Name tbF11_RadProp]"
-  Indexes {
-  id [pk]
-}
-}
-
-Table "dbo"."Frequency_Disturbance_Report" {
-"id" int [not null, increment,note:'ID. ของ Frequency_Disturbance_Report']
-"chkid" int [not null,note:'ID การตรวจสอบของ oper fieldname ChkID']
-"add_date" datetime [note:'วันที่บันทึกจาก oper fieldname DtAdd']
-"region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
-"area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
-"station_name" nvarchar(100) [null,note:'ชื่อสถานีตรวจสอบ oper fieldname StaNaG']
-"stn_license" nvarchar(100) [null,note:'เลขที่ใบอนุญาต oper fieldname StaNoG']
-"province" nvarchar(100) [null,note:'ชื่อจังหวัด oper fieldname Province']
-"aumphoe" nvarchar(100) [null,note:'ชื่ออำเภอ oper fieldname Aumphoe']
-"tambol" nvarchar(250) [null,note:'ชื่อตำบล oper fieldname Tambol']
-"sta_locg" nvarchar(max) [null,note:'ที่ตั้ง oper fieldname StaLocG']
-"freq_src_type" nvarchar(200) [null,note:'ประเภทแหล่งกำเนิด oper fieldname FreqSrcType']
- "freq_mhzg" nvarchar(200) [null,note:'ความถี่ oper fieldname FreqMhzG']
- "diss_emitts" nvarchar(200) [null,note:'สาเหตุการรบกวน oper fieldname DisEmitts']
- "dist_rrk" nvarchar(200) [null,note:'รายละเอียดการรบกวน oper fieldname DistRrk']
- "dis_chk" nvarchar(500) [null,note:'ความเห็นผู้ตรวจ oper fieldname DisChk']
- "equ_names" nvarchar(max) [null,note:'เครื่องมือวัด oper fieldname EquNames']
- "dt_test" datetime [note:'วันที่ตรวจสอบ oper fieldname DtTest']
- "dt_rep" datetime [note:'วันที่รายงาน oper fieldname DtRep']
- "dt_apv" datetime [note:'วันที่อนุมัติ oper fieldname DtApv']
- "apv_status" nvarchar(11) [null,note:'สถานะ oper fieldname ApvStatus']
- note:"ตารางเก็บข้อมูลการตรวจสอบแก้ไขการรบกวนคลื่นวิทยุ [ข้อมูลจาก oper Table Name tbF12_DistbRad ]"
- Indexes {
-  id [pk]
-}
-}
-
-Table "dbo"."Frequency_NotAllow_Report" {
-  "id" int [not null, increment,note:'ID. ของ Frequency_NotAllow_Report']
-  "chkid" int [not null,note:'ID การตรวจสอบของ oper fieldname ChkID']
-  "chk_date" datetime [note:'วันที่ตรวจสอบจาก oper fieldname DtTest']
-  "region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
-  "area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
-  "station_name" nvarchar(250) [null,note:'ชื่อสถานี  oper fieldname StaNaG' ]
-  "frequency_MHz" nvarchar(50) [null,note:'ความถี่ oper fieldname FreqMhzG']
-  "province" nvarchar(200) [null,note:'ชื่อจังหวัด oper fieldname Province']
-  "aumphoe" nvarchar(200) [null,note:'ชื่ออำเภอ oper fieldname Aumphoe']
-  "tambol" nvarchar(200) [null,note:'ชื่อตำบล oper fieldname Tambol']
-  "station_location" nvarchar(450) [null,note:'ที่ตั้งสถานี oper fieldname StaLocG']
-  "equ_name" nvarchar(max) [null,note:'เครื่องมือวัด oper fieldname EquNames']
-  "approve_status" nvarchar(11) [null,note:'สถานะ oper fieldname ApvStatus']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  note:"ตารางเก็บข้อมูลการตรวจสอบความถี่ที่ไม่ได้รับอนุญาต [ข้อมูลจาก oper Table Name tbF13_NotAllow]"
-  Indexes {
-  id [pk]
-}
-}
-
-Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Frequency_Emission_Report"."region_id"
-Ref "Fk":"dbo"."Info_Area"."id" < "dbo"."Frequency_Emission_Report"."area_id"
-Ref "FK":"dbo"."Info_Station_Type"."id" < "dbo"."Frequency_Emission_Report"."station_type_id"
-Ref "FK":"dbo"."Info_Station_SubType"."id" < "dbo"."Frequency_Emission_Report"."station_subtype_id"
-
-
-Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Frequency_Disturbance_Report"."region_id"
-Ref "Fk":"dbo"."Info_Area"."id" < "dbo"."Frequency_Disturbance_Report"."area_id"
-
-Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Frequency_NotAllow_Report"."region_id"
-Ref "Fk":"dbo"."Info_Area"."id" < "dbo"."Frequency_NotAllow_Report"."area_id"
-
-
 Ref "FKHealth_Saf953904":"dbo"."Info_Area"."id" < "dbo"."Health_Safety_Test_Plan"."area_id"
 
 Ref "FKHealth_Saf855281":"dbo"."Info_Region"."id" < "dbo"."Health_Safety_Test_Plan"."region_id"
@@ -733,7 +622,7 @@ Ref "FKRadio_Emis890179":"dbo"."Info_Area"."id" < "dbo"."Radio_Emission_Test_Pla
 
 Ref "FKRadio_Emis80993":"dbo"."Info_Region"."id" < "dbo"."Radio_Emission_Test_Plan"."region_id"
 
-Ref "FKRadio_Emis238262":"dbo"."Info_Station_Type"."id" < "dbo"."Radio_Emission_Test_Plan"."station_type_id"
+Ref "FKRadio_Emis238262":"dbo"."Info_Radio_Station"."id" < "dbo"."Radio_Emission_Test_Plan"."radio_station_id"
 
 Ref "FKInfo_Zipco299713":"dbo"."Info_Province"."id" < "dbo"."Info_Zipcode"."province_id"
 
@@ -769,4 +658,3 @@ Ref "FKEMF_Measur160831":"dbo"."EMF_Measurement_Report"."id" < "dbo"."EMF_Measur
 
 Ref "FKTCI_Occupa427123":"dbo"."TCI_Occupancy_Report"."id" < "dbo"."TCI_Occupancy_Report_Detail"."tci_occupancy_report_id"
 
-Ref "FKStnType":"dbo"."Info_Station_Type"."id" < "dbo"."Info_Station_SubType"."station_type_id"

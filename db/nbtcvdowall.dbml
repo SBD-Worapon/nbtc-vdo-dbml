@@ -685,6 +685,7 @@ Table "dbo"."Frequency_Disturbance_Report" {
  "dt_rep" datetime [note:'วันที่รายงาน oper fieldname DtRep']
  "dt_apv" datetime [note:'วันที่อนุมัติ oper fieldname DtApv']
  "apv_status" nvarchar(11) [null,note:'สถานะ oper fieldname ApvStatus']
+ "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
  note:"ตารางเก็บข้อมูลการตรวจสอบแก้ไขการรบกวนคลื่นวิทยุ [ข้อมูลจาก oper Table Name tbF12_DistbRad ]"
  Indexes {
   id [pk]

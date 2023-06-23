@@ -77,24 +77,12 @@ Table "dbo"."EMF_Measurement_Report" {
   "report_month" int [not null,note:'เดือนของข้อมูลการตรวจวัด']
   "report_date" int [not null,note:'วันที่ของข้อมูลการตรวจวัด']
   "report_quarter" int [not null,note:'ไตรมาสของข้อมูลการตรวจวัด']
-  "selection" nvarchar(100) [note:'เก็บข้อมูล Text "Unchecked,checked"']
-  "measured_time" datetime [note:'วันที่เวลาที่ทำการตรวจสอบข้อมูล']
-  "service_name" nvarchar(50) [note:'ชื่อ Service ของข้อมูลการตรวจวัด']
-  "start_Hz" int [note:'ความถี่ (Hz) เริ่มต้นที่ทำการตรวจวัด']
-  "stop_Hz" int [note:'ความถี่ (Hz) สิ้นสุดที่ทำการตรวจวัด']
-  "original_file_name" nvarchar(100) [note:'ชื่อของไฟล์ต้นฉบับที่นำเข้าข้อมูล']
-  "new_file_name" nvarchar(100) [note:'ชื่อของไฟล์ที่นำเข้าข้อมูลสำเร็จ อัพเดทชื่อใหม่ ต่อท้ายด้วย_yyMMddHHmm']
-  "files_path" nvarchar(500) [note:'ชื่อ path ที่เก็บไฟล์หลังจากนำเข้าข้อมูลสำเร็จหรือ Fail(แยกเก็บ)']
-  "created_date" datetime [note:'วันเวลาที่สร้างข้อมูล']
-  note:"ตารางเก็บข้อมูล ( Header ) การกำกับดูแลความปลอดภัยต่อสุขภาพ"
-Indexes {
-  id [pk]
-}
-}
-
-Table "dbo"."EMF_Measurement_Report_Detail" {
-  "id" bigint [not null, increment,note:'ID. ของ EMF_Measurement_Report_Detail']
-  "emf_measurement_report_id" bigint [not null,note:'ID. ของ EMF_Measurement_Report (FK.)']
+  "selection" nvarchar(100) [null,note:'เก็บข้อมูล Text "Unchecked,checked"']
+  "measured_date" datetime [null,note:'วันที่เวลาที่ทำการตรวจสอบข้อมูล']
+  "measured_time" datetime [null,note:'วันที่เวลาที่ทำการตรวจสอบข้อมูล']
+  "service_name" nvarchar(50) [null,note:'ชื่อ Service ของข้อมูลการตรวจวัด']
+  "start_Hz" int [null,note:'ความถี่ (Hz) เริ่มต้นที่ทำการตรวจวัด']
+  "stop_Hz" int [null,note:'ความถี่ (Hz) สิ้นสุดที่ทำการตรวจวัด']
   "max_V/m" decimal(20,4) [note:'ค่า Max ของการตรวจวัดโดยคำนวณจาก V/m']
   "avg_V/m" decimal(20,4) [note:'ค่า Avg ของการตรวจวัดโดยคำนวณจาก V/m']
   "rms_V/m" decimal(20,4) [note:'ค่า Rms ของการตรวจวัดโดยคำนวณจาก V/m']
@@ -108,8 +96,11 @@ Table "dbo"."EMF_Measurement_Report_Detail" {
   "max_mW/m" decimal(20,4) [note:'ค่า Max ของการตรวจวัดโดยคำนวณจาก mW/m']
   "avg_mW/m" decimal(20,4) [note:'ค่า Avg ของการตรวจวัดโดยคำนวณจาก mW/m']
   "rms_mW/m" decimal(20,4) [note:'ค่า Rms ของการตรวจวัดโดยคำนวณจาก mW/m']
+  "original_file_name" nvarchar(100) [note:'ชื่อของไฟล์ต้นฉบับที่นำเข้าข้อมูล']
+  "new_file_name" nvarchar(100) [note:'ชื่อของไฟล์ที่นำเข้าข้อมูลสำเร็จ อัพเดทชื่อใหม่ ต่อท้ายด้วย_yyMMddHHmm']
+  "files_path" nvarchar(500) [note:'ชื่อ path ที่เก็บไฟล์หลังจากนำเข้าข้อมูลสำเร็จหรือ Fail(แยกเก็บ)']
   "created_date" datetime [note:'วันเวลาที่สร้างข้อมูล']
-  note:"ตารางเก็บข้อมูล ( Detail ) การกำกับดูแลความปลอดภัยต่อสุขภาพ"
+  note:"ตารางเก็บข้อมูล ( Header ) การกำกับดูแลความปลอดภัยต่อสุขภาพ"
 Indexes {
   id [pk]
 }
@@ -509,7 +500,8 @@ Table "dbo"."Radio_Emission_Test_Plan" {
   "region_id" int [not null,note:'ID. ของ Region (FK.)']
   "area_id" int [not null,note:'ID. ของ Area (FK.)']
   "report_year" int [not null,note:'ปีของข้อมูลแผนการดำเนินการ']
-  "station_type_id" int [not null,note:'ID. ของ Info_Station_Type (FK.)']
+  "info_station_type_id" int [not null,note:'ID. ของ info_station_type (FK.)']
+  "info_station_subtype_id" int [not null,note:'ID. ของ info_station_subtype (FK.)']
   "actual_01" int [null,note:'แผนการทดสอบเดือน ม.ค.']
   "result_01" int [null,note:'ผลการทดสอบเดือน ม.ค.']
   "actual_02" int [null,note:'แผนการทดสอบเดือน ก.พ.']
@@ -652,13 +644,13 @@ Table "dbo"."Frequency_Emission_Report" {
   "tambol" nvarchar(200) [null,note:'ชื่อตำบล oper fieldname Tambol']
   "sta_locg" nvarchar(450) [null,note:'ที่ตั้งสถานี oper fieldname StaLocG']
   "latitude" nvarchar(50) [null,note:'ละติจูด']
-  "longgitude" nvarchar(50) [null,note:'ลองจิจูด']
+  "longitude" nvarchar(50) [null,note:'ลองจิจูด']
   "altitude_above_sealevel" nvarchar(50) [null,note:'ความสูงจากระดับน้ำทะเล']
-  "heightOfaerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
-  "opinion_det" nvarchar(250) [null,note:'ผลการตรวจสอบ oper fieldname OpinionDet']
+  "height_Of_aerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
+  "opinion_det" nvarchar(max) [null,note:'ผลการตรวจสอบ oper fieldname OpinionDet']
   "equ_name" nvarchar(max) [null,note:'เครื่องมือวัด oper fieldname EquNames']
-  "docnfno_disp" nvarchar(250) [null,note:'หนังสือแจ้งเตือน oper fieldname DocNFNo_Disp ']
-  "docnfno_date" nvarchar(250) [null,note:'หนังสือแจ้งเตือนวันที่ oper fieldname DtDocNF_Disp']
+  "docnfno_disp" datetime [null,note:'หนังสือแจ้งเตือน oper fieldname DocNFNo_Disp ']
+  "docnfno_date" datetime [null,note:'หนังสือแจ้งเตือนวันที่ oper fieldname DtDocNF_Disp']
   "approve_status" nvarchar(11) [null,note:'สถานะ oper fieldname ApvStatus']
   "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
   note:"ตารางเก็บข้อมูลการตรวจสอบมาตรฐานการแพร่ [ข้อมูลจาก oper Table Name tbF11_RadProp]"
@@ -682,12 +674,12 @@ Table "dbo"."Frequency_Disturbance_Report" {
 "freq_src_type" nvarchar(200) [null,note:'ประเภทแหล่งกำเนิด oper fieldname FreqSrcType']
 "freq_mhzg" nvarchar(200) [null,note:'ความถี่ oper fieldname FreqMhzG']
 "latitude" nvarchar(50) [null,note:'ละติจูด']
-"longgitude" nvarchar(50) [null,note:'ลองจิจูด']
+"longitude" nvarchar(50) [null,note:'ลองจิจูด']
 "altitude_above_sealevel" nvarchar(50) [null,note:'ความสูงจากระดับน้ำทะเล']
-"heightOfaerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
+"height_Of_aerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
  "diss_emitts" nvarchar(200) [null,note:'สาเหตุการรบกวน oper fieldname DisEmitts']
- "dist_rrk" nvarchar(200) [null,note:'รายละเอียดการรบกวน oper fieldname DistRrk']
- "dis_chk" nvarchar(500) [null,note:'ความเห็นผู้ตรวจ oper fieldname DisChk']
+ "dist_rrk" nvarchar(max) [null,note:'รายละเอียดการรบกวน oper fieldname DistRrk']
+ "dis_chk" nvarchar(max) [null,note:'ความเห็นผู้ตรวจ oper fieldname DisChk']
  "equ_names" nvarchar(max) [null,note:'เครื่องมือวัด oper fieldname EquNames']
  "dt_test" datetime [note:'วันที่ตรวจสอบ oper fieldname DtTest']
  "dt_rep" datetime [note:'วันที่รายงาน oper fieldname DtRep']
@@ -713,9 +705,9 @@ Table "dbo"."Frequency_NotAllow_Report" {
   "tambol" nvarchar(200) [null,note:'ชื่อตำบล oper fieldname Tambol']
   "sta_locg" nvarchar(450) [null,note:'ที่ตั้งสถานี oper fieldname StaLocG']
   "latitude" nvarchar(50) [null,note:'ละติจูด']
-  "longgitude" nvarchar(50) [null,note:'ลองจิจูด']
+  "longitude" nvarchar(50) [null,note:'ลองจิจูด']
   "altitude_above_sealevel" nvarchar(50) [null,note:'ความสูงจากระดับน้ำทะเล']
-  "heightOfaerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
+  "height_Of_aerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
   "equ_names" nvarchar(max) [null,note:'เครื่องมือวัด oper fieldname EquNames']
   "apv_status" nvarchar(11) [null,note:'สถานะ oper fieldname ApvStatus']
   "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
@@ -725,10 +717,80 @@ Table "dbo"."Frequency_NotAllow_Report" {
 }
 }
 
+Table "dbo"."Organization_Allocated_Spectrum" {
+  "id" int [not null, increment,note:'ID. ของ Organization_Allocated_Spectrum']
+  "tax_id" nvarchar(50) [null,note:'เลขที่ผู้เสียภาษี']
+  "freq_rage" nvarchar(50) [null,note:'ย่านความถี่']
+  "freq_1" nvarchar(50) [null,note:'คลื่นความถี่ (MHz)']
+  "freq_2" nvarchar(50) [null,note:'คู่คลื่นความถี่ (MHz)']
+  "rage" nvarchar(50) [null,note:'ย่านคลื่นความถี่ (MHz)']
+  "user_1" nvarchar(max) [null,note:'ผู้ใช้คลื่นความถี่']
+  "user_2" nvarchar(max) [null,note:'ผู้ให้ใช้คลื่นความถี่ร่วม']
+  "bandwidth" nvarchar(50) [null,note:'Bandwidth (kHz)']
+  "btype" nvarchar(max) [null,note:'กิจการวิทยุคมนาคม']
+  "usage" nvarchar(max) [null,note:'การนำไปใช้งาน']
+  "payment" decimal(20,4) [null,note:'ค่าตอบแทนคลื่นความถี่']
+  "fon" nvarchar(max) [null,note:'มติที่ประชุม/FON']
+  "doc_no" nvarchar(250) [null,note:'หนังสืออนุญาต ที่']
+  "permit_date" datetime [null,note:'วันที่อนุญาต']
+  "end_date" datetime [null,note:'วันสิ้นสุดการอนุญาต']
+  "period" nvarchar(50) [null,note:'ระยะเวลาการอนุญาต']
+  "remind_date" datetime [null,note:'เตือนให้ขอขยายเวลาใช้ความถี่ล่าสุด']
+  "status" nvarchar(50) [null,note:'สถานะปัจจุบัน']
+  "report_date" datetime [null,note:'วันที่รายงานล่าสุด']
+  "remark" nvarchar(max) [null,note:'รายละเอียดเพิ่มเติม']  
+  "result" text [null,note:'ข้อมูลผู้ใช้คลื่นความถี่']
+  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
+  note:"ตารางเก็บข้อมูลหน่วยงานที่ได้รับการจัดสรรคลื่นความถี่ [ข้อมูลจาก Data Center]"
+  Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Transmission_Tower_Station" {
+  "id" int [not null, increment,note:'ID. ของ Transmission_Tower_Station']
+  "region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
+  "area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
+  "info_station_type_id" int [not null,note:'ID. ของ Info_Station_Type (FK.) สถานี ']
+  "info_station_subtype_id" int [not null,note:'ID. ของ info_station_subtype (FK.) ประเภทสถานี']
+  "station_code" nvarchar(50) [null,note:'รหัสสถานี']
+  "station_name" nvarchar(150) [null,note:'ประเภทสถานี']
+  "frequency" nvarchar(50) [null,note:'ความถี่']
+  "frequency_unit" nvarchar(50) [null,note:'หน่วยความถี่']
+  "business_name" nvarchar(250) [null,note:'ชื่อผู้ประกอบการ']
+  "tax_invoice" nvarchar(50) [null,note:'เลขที่ผู้เสียภาษี']
+  "license_no" nvarchar(50) [null,note:'เลขที่ใบอนุญาต']
+  "business_type" nvarchar(250) [null,note:'ประเภทธุรกิจ']
+  "company_type" nvarchar(250) [null,note:'ประเภทหน่วยงาน']
+  "status" nvarchar(50) [null,note:'สถานะ']
+  "location" nvarchar(max) [null,note:'ที่ตั้ง']
+  "province" nvarchar(150) [null,note:'จังหวัด']
+  "aumphoe" nvarchar(150) [null,note:'อำเภอ']
+  "tambol" nvarchar(150) [null,note:'ตำบล']
+  "zipcode" nvarchar(10) [null,note:'รหัสไปรษณีย์']
+  "source_data" nvarchar(50) [null,note:'แหล่งข้อมูล']
+  "contact_name" nvarchar(150) [null,note:'ผู้ประสานงาน']
+  "telephone" nvarchar(15) [null,note:'โทรศัพท์']
+  "latitude" nvarchar(50) [null,note:'พิกัด Lat']
+  "longitude" nvarchar(50) [null,note:'พิกัด Long']
+  "altitude_above_sealevel" nvarchar(50) [null,note:'ความสูงจากระดับน้ำทะเล']
+  "height_Of_aerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
+  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
+  note:"ตารางเก็บข้อมูลสถานีเสาส่งโทรศัพท์มือถือ [ข้อมูลจาก Data Center]"
+  Indexes {
+  id [pk]
+}
+}
+
+
 Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Frequency_Emission_Report"."region_id"
 Ref "Fk":"dbo"."Info_Area"."id" < "dbo"."Frequency_Emission_Report"."area_id"
 Ref "FK":"dbo"."Info_Station_Type"."id" < "dbo"."Frequency_Emission_Report"."station_type_id"
 Ref "FK":"dbo"."Info_Station_SubType"."id" < "dbo"."Frequency_Emission_Report"."station_subtype_id"
+
+
+Ref "FK":"dbo"."Info_Station_Type"."id" < "dbo"."Transmission_Tower_Station"."info_station_type_id"
+Ref "FK":"dbo"."Info_Station_SubType"."id" < "dbo"."Transmission_Tower_Station"."info_station_subtype_id"
 
 
 Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Frequency_Disturbance_Report"."region_id"
@@ -738,48 +800,47 @@ Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Frequency_NotAllow_Report"."region_id
 Ref "Fk":"dbo"."Info_Area"."id" < "dbo"."Frequency_NotAllow_Report"."area_id"
 
 
-Ref "FKHealth_Saf953904":"dbo"."Info_Area"."id" < "dbo"."Health_Safety_Test_Plan"."area_id"
+Ref "Fk":"dbo"."Info_Area"."id" < "dbo"."Health_Safety_Test_Plan"."area_id"
 
-Ref "FKHealth_Saf855281":"dbo"."Info_Region"."id" < "dbo"."Health_Safety_Test_Plan"."region_id"
+Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Health_Safety_Test_Plan"."region_id"
 
-Ref "FKRadio_Emis890179":"dbo"."Info_Area"."id" < "dbo"."Radio_Emission_Test_Plan"."area_id"
+Ref "Fk":"dbo"."Info_Area"."id" < "dbo"."Radio_Emission_Test_Plan"."area_id"
 
-Ref "FKRadio_Emis80993":"dbo"."Info_Region"."id" < "dbo"."Radio_Emission_Test_Plan"."region_id"
+Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Radio_Emission_Test_Plan"."region_id"
 
-Ref "FKRadio_Emis238262":"dbo"."Info_Station_Type"."id" < "dbo"."Radio_Emission_Test_Plan"."station_type_id"
+Ref "Fk":"dbo"."Info_Station_Type"."id" < "dbo"."Radio_Emission_Test_Plan"."info_station_type_id"
+Ref "Fk":"dbo"."Info_Station_SubType"."id" < "dbo"."Radio_Emission_Test_Plan"."info_station_subtype_id"
 
-Ref "FKInfo_Zipco299713":"dbo"."Info_Province"."id" < "dbo"."Info_Zipcode"."province_id"
+Ref "Fk":"dbo"."Info_Province"."id" < "dbo"."Info_Zipcode"."province_id"
 
-Ref "FKInfo_Zipco255546":"dbo"."Info_District"."id" < "dbo"."Info_Zipcode"."district_id"
+Ref "Fk":"dbo"."Info_District"."id" < "dbo"."Info_Zipcode"."district_id"
 
-Ref "FKArea_Provi574106":"dbo"."Info_Geography"."id" < "dbo"."Area_Province"."geography_id"
+Ref "Fk":"dbo"."Info_Geography"."id" < "dbo"."Area_Province"."geography_id"
 
-Ref "FKInfo_Sub_D858503":"dbo"."Info_Province"."id" < "dbo"."Info_Sub_District"."province_id"
+Ref "Fk":"dbo"."Info_Province"."id" < "dbo"."Info_Sub_District"."province_id"
 
-Ref "FKInfo_Zipco177048":"dbo"."Info_Sub_District"."id" < "dbo"."Info_Zipcode"."sub_district_id" [update: cascade]
+Ref "Fk":"dbo"."Info_Sub_District"."id" < "dbo"."Info_Zipcode"."sub_district_id" [update: cascade]
 
-Ref "FKDisturbanc342409":"dbo"."Info_Business_Type"."id" < "dbo"."Disturbance_Report"."business_type_id"
+Ref "Fk":"dbo"."Info_Business_Type"."id" < "dbo"."Disturbance_Report"."business_type_id"
 
-Ref "FKDisturbanc708223":"dbo"."Info_Disturbance_Status"."id" < "dbo"."Disturbance_Report"."disturbance_status_id"
+Ref "Fk":"dbo"."Info_Disturbance_Status"."id" < "dbo"."Disturbance_Report"."disturbance_status_id"
 
-Ref "FKInfo_Sub_D902670":"dbo"."Info_District"."id" < "dbo"."Info_Sub_District"."district_id" [update: cascade]
+Ref "Fk":"dbo"."Info_District"."id" < "dbo"."Info_Sub_District"."district_id" [update: cascade]
 
-Ref "FKInfo_Distr360426":"dbo"."Info_Province"."id" < "dbo"."Info_District"."province_id" [update: cascade]
+Ref "Fk":"dbo"."Info_Province"."id" < "dbo"."Info_District"."province_id" [update: cascade]
 
-Ref "FKInfo_Provi333697":"dbo"."Info_Geography"."id" < "dbo"."Info_Province"."geography_id" [update: cascade]
+Ref "Fk":"dbo"."Info_Geography"."id" < "dbo"."Info_Province"."geography_id" [update: cascade]
 
-Ref "FKArea_Provi922664":"dbo"."Info_Province"."id" < "dbo"."Area_Province"."province_id" [update: cascade]
+Ref "Fk":"dbo"."Info_Province"."id" < "dbo"."Area_Province"."province_id" [update: cascade]
 
-Ref "FKArea_Provi893606":"dbo"."Info_Area"."id" < "dbo"."Area_Province"."area_id"
+Ref "Fk":"dbo"."Info_Area"."id" < "dbo"."Area_Province"."area_id"
 
-Ref "FKDisturbanc670568":"dbo"."Info_Region"."id" < "dbo"."Disturbance_Report"."region_id"
+Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Disturbance_Report"."region_id"
 
-Ref "FKInfo_Area396653":"dbo"."Info_Region"."id" < "dbo"."Info_Area"."region_id"
+Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Info_Area"."region_id"
 
-Ref "FKDisturbanc861381":"dbo"."Info_Area"."id" < "dbo"."Disturbance_Report"."area_id"
+Ref "Fk":"dbo"."Info_Area"."id" < "dbo"."Disturbance_Report"."area_id"
 
-Ref "FKEMF_Measur160831":"dbo"."EMF_Measurement_Report"."id" < "dbo"."EMF_Measurement_Report_Detail"."emf_measurement_report_id"
+Ref "Fk":"dbo"."TCI_Occupancy_Report"."id" < "dbo"."TCI_Occupancy_Report_Detail"."tci_occupancy_report_id"
 
-Ref "FKTCI_Occupa427123":"dbo"."TCI_Occupancy_Report"."id" < "dbo"."TCI_Occupancy_Report_Detail"."tci_occupancy_report_id"
-
-Ref "FKStnType":"dbo"."Info_Station_Type"."id" < "dbo"."Info_Station_SubType"."station_type_id"
+Ref "Fk":"dbo"."Info_Station_Type"."id" < "dbo"."Info_Station_SubType"."station_type_id"

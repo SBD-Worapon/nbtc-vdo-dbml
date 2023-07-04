@@ -81,8 +81,8 @@ Table "dbo"."EMF_Measurement_Report" {
   "measured_date" datetime [null,note:'วันที่เวลาที่ทำการตรวจสอบข้อมูล']
   "measured_time" datetime [null,note:'วันที่เวลาที่ทำการตรวจสอบข้อมูล']
   "service_name" nvarchar(50) [null,note:'ชื่อ Service ของข้อมูลการตรวจวัด']
-  "start_Hz" int [null,note:'ความถี่ (Hz) เริ่มต้นที่ทำการตรวจวัด']
-  "stop_Hz" int [null,note:'ความถี่ (Hz) สิ้นสุดที่ทำการตรวจวัด']
+  "start_Hz" bigint [null,note:'ความถี่ (Hz) เริ่มต้นที่ทำการตรวจวัด']
+  "stop_Hz" bigint [null,note:'ความถี่ (Hz) สิ้นสุดที่ทำการตรวจวัด']
   "max_V/m" decimal(20,4) [note:'ค่า Max ของการตรวจวัดโดยคำนวณจาก V/m']
   "avg_V/m" decimal(20,4) [note:'ค่า Avg ของการตรวจวัดโดยคำนวณจาก V/m']
   "rms_V/m" decimal(20,4) [note:'ค่า Rms ของการตรวจวัดโดยคำนวณจาก V/m']
@@ -296,6 +296,53 @@ Indexes {
   id [pk]
 }
 }
+
+Table "dbo"."Info_Frequency" {
+  "id" int [not null, increment,note:'ID. ของช่วงความถี่']
+  "system" nvarchar(20) [null,note:'ชื่อระบบที่ใช้คลื่นคววามถี่']
+  "report_year" int [note:'ปีที่กำหนดข้อมูลคลื่นความถี่']
+  "band_no" nvarchar(20) [null,note:'ชื่อของ band ที่ใช้คลื่นความถี่']
+  "start_frequency" decimal(20, 4) [null,note:'ความถี่เริ่มต้น']
+  "start_unit" nvarchar(10) [null,note:'หน่วยนับของความถี่เริ่มต้น']
+  "stop_frequency" decimal(20, 4) [null,note:'ความถี่สิ้นสุด']
+  "frequency_range" nvarchar(50) [null,note:'ช่วงของความถี่']
+  "stop_unit" nvarchar(10) [null,note:'หน่วยนับของความถี่สิ้นสุด']
+  "bandwidth" decimal(20, 4) [null,note:'ค่าแบรนวิธที่ใช้ในการกำหนดความถี่']
+  "bandwidth_unit" nvarchar(10) [null,note:'หน่วยนับของค่าแบรนวิธ']
+  "frequency_amount" int [null,note:'จำนวนของช่องความถี่ที่ได้จากการแบ่งตามค่าแบรนวิธ']
+  "fpo_description" nvarchar(255) [null,note:'รายละเอียดของ fpo']
+  "fpo_comment" nvarchar(255) [null,note:'ความเห็นของ fpo']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime [null,note:'วันที่ที่ลบข้อมูล']
+  "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
+  note:"ตารางเก็บข้อมูลความถี่แยกตามแบรนด์"
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Frequency_Detail" {
+  "id" int [not null, increment,note:'ID. ของช่วงความถี่']
+  "report_year" int [null, note:'ปีที่กำหนดข้อมูลคลื่นความถี่']
+  "frequency_id" int [not null,note:'ID. ของชุดความถี่ (FK.)']
+  "frequency" decimal(20, 4) [null,note:'ความถี่ที่กำหนดในแต่ละชุดความถี่']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime [null,note:'วันที่ที่ลบข้อมูล']
+  "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
+  note:"ตารางเก็บข้อมูลความถี่แยกตามแบรนด์"
+Indexes {
+  id [pk]
+}
+}
+
 
 Table "dbo"."Info_Geography" {
   "id" int [not null, increment,note:'ID. ของภาคในประเทศ']
@@ -538,7 +585,26 @@ Indexes {
   id [pk]
 }
 }
-
+Table "dbo"."TCI_Data_Report" {
+  "id" int [not null, increment,note:'ID. ของ TCI_Data_Report']
+  "report_year" int [not null,note:'ปีที่คำนวณข้อมูลรายงาน']
+  "report_month" int [not null,note:'เดือนที่คำนวณข้อมูลรายงาน']
+  "report_quarter" int [not null,note:'ไตรมาสที่คำนวณข้อมูลรายงาน']
+  "report_region" int [not null,note:'ID. ของภาคในกสทช.']
+  "report_area" int [not null,note:'ID. ของเขตในกสทช.']
+  "report_station" nvarchar(255) [not null,note:'ชื่อสถานีภายในเขต']
+  "frequency_id" int [not null,note:'ID. ของความถี่แยกตาม band (FK.)']
+  "band" int [not null,note:'หมายเลขของ Band']
+  "frequency" nvarchar(50) [not null,note:'ช่วงความถี่ของแต่ละ Band']
+  "count_value_50" int [not null,note:'ผลการนับค่าข้อมูล maximum = 50']
+  "count_value_100" int [not null,note:'ผลการนับค่าข้อมูล maximum = 100']
+  "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
+  note:"ตารางเก็บข้อมูลการคำนวณสรุปการใช้คลื่นความถี่"
+  Indexes {
+  id [pk]
+}
+}
 Table "dbo"."TCI_Occupancy_Report" {
   "id" bigint [not null, increment,note:'ID. ของ TCI_Occupancy_Report']
   "report_year" int [not null,note:'ปีของข้อมูลการครอบครอง']
@@ -781,7 +847,8 @@ Table "dbo"."Transmission_Tower_Station" {
   id [pk]
 }
 }
-
+Ref "Fk":"dbo"."Info_Frequency"."id" < "dbo"."Info_Frequency_Detail"."frequency_id"
+Ref "Fk":"dbo"."Info_Frequency"."id" < "dbo"."TCI_Data_Report"."frequency_id"
 
 Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Frequency_Emission_Report"."region_id"
 Ref "Fk":"dbo"."Info_Area"."id" < "dbo"."Frequency_Emission_Report"."area_id"

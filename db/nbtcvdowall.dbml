@@ -12,12 +12,12 @@ Table "dbo"."Area_Province" {
   "geography_id" int [not null,note: 'ID รหัสภูมิภาคประเทศ (FK)']
   "province_id" int [not null,note: 'ID รหัสจังหวัด (FK)']
   "is_office" bit [not null,note: 'เป็นที่ตั้งสำนักงานเขต?']
-  "created_by" nvarchar(50) [note: 'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [note: 'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [note: 'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [note: 'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [note: 'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [note: 'วันที่ที่ลบข้อมูล']
+  "created_by" nvarchar(50) [null,note: 'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note: 'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note: 'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note: 'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note: 'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime(2,7) [null,note: 'วันที่ที่ลบข้อมูล']
   "status" varchar(1) [not null,note: 'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
   note:"ตารางเก็บข้อมูลจังหวัดที่อยู่ภายในแต่ละเขต"
 Indexes {
@@ -36,35 +36,35 @@ Table "dbo"."Disturbance_Report" {
   "report_month" int [note:'เดือนของข้อมูลการรบกวน']
   "report_quarter" int [note:'ไตรมาสของข้อมูลการรบกวน']
   "agency_name" nvarchar(50) [note:'ชื่อของหน่วยงาน']
-  "received_date" datetime [note:'วันที่หนังสือ']
+  "received_date" datetime(2,7) [note:'วันที่หนังสือ']
   "received_no" nvarchar(50) [note:'เลขที่หนังสือ']
   "business_type_id" int [not null,note:'ID. ของ Business_Type (FK.)']
   "business_type_name" nvarchar(100) [null,note:'ชื่อของประเภทหน่วยงาน']
   "disturbance_type_id" int [not null,note:'ID. ของ Disturbance_Type (FK.)']
   "disturbance_type_name" nvarchar(100) [null,note:'ชื่อของประเภทการรบกวน']
-  "description" ntext [note:'รายละเอียดของแจ้งปัญหาการรบกวน']
-  "site_code" nvarchar(20) [note:'รหัสของ site ที่แจ้งปัญหา']
-  "latitude" decimal(12,9) [note:'ละติจูดของสถานที่ที่แจ้งปัญหา']
-  "longitude" decimal(12,9) [note:'ลองจิจูดของสถานที่ที่แจ้งปัญหา']
+  "description" ntext [null,note:'รายละเอียดของแจ้งปัญหาการรบกวน']
+  "site_code" nvarchar(20) [null,note:'รหัสของ site ที่แจ้งปัญหา']
+  "latitude" decimal(12,9) [null,note:'ละติจูดของสถานที่ที่แจ้งปัญหา']
+  "longitude" decimal(12,9) [null,note:'ลองจิจูดของสถานที่ที่แจ้งปัญหา']
   "sub_district_id" int [not null,note:'ID. ของ Sub_District (FK.)']
   "sub_district_name" nvarchar(50) [note:'ชื่อของตำบล / แขวง']
   "district_id" int [not null,note:'ID. ของ District (FK.)']
-  "district_name" nvarchar(50) [note:'ชื่อของอำเภอ / เขต']
-  "province_id" int [note:'ID. ของ Province (FK.)']
-  "province_name" nvarchar(50) [note:'ชื่อของจังหวัด']
-  "cause_of_disturbance" ntext [note:'สาเหตุของการรบกวน']
-  "frequency" int [note:'ความถี่ (MHz.)']
+  "district_name" nvarchar(50) [null,note:'ชื่อของอำเภอ / เขต']
+  "province_id" int [null,note:'ID. ของ Province (FK.)']
+  "province_name" nvarchar(50) [null,note:'ชื่อของจังหวัด']
+  "cause_of_disturbance" ntext [null,note:'สาเหตุของการรบกวน']
+  "frequency" int [null,note:'ความถี่ (MHz.)']
   "disturbance_status_id" int [not null,note:'ID ของ Disturbance_Status ( FK.)']
   "disturbance_status_name" nvarchar(100) [null,note:'ชื่อสถานะของการรบกวน']
-  "cloesd_no" nvarchar(20) [note:'เลขหนังสือปิดงาน']
-  "closed_date" datetime [note:'วันที่ที่ปิดงาน']
-  "duration" int [note:'ระยะเวลาในการดำเนินการ (วัน) : วันที่ปิด - วันที่รับเรื่อง']
-  "closed_description" ntext [note:'รายละเอียดในการปิดงาน']
-  "created_by" nvarchar(50) [note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [note:'วันที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [note:'วันที่ที่ปรับปรุงข้อมูล']
-  "status" varchar(1) [note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
+  "cloesd_no" nvarchar(20) [null,note:'เลขหนังสือปิดงาน']
+  "closed_date" datetime(2,7) [null,note:'วันที่ที่ปิดงาน']
+  "duration" int [null,note:'ระยะเวลาในการดำเนินการ (วัน) : วันที่ปิด - วันที่รับเรื่อง']
+  "closed_description" ntext [null,note:'รายละเอียดในการปิดงาน']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
   note:"ตารางเก็บรายละเอียดการรบกวน"
 Indexes {
   id [pk]
@@ -78,30 +78,123 @@ Table "dbo"."EMF_Measurement_Report" {
   "report_date" int [not null,note:'วันที่ของข้อมูลการตรวจวัด']
   "report_quarter" int [not null,note:'ไตรมาสของข้อมูลการตรวจวัด']
   "selection" nvarchar(100) [null,note:'เก็บข้อมูล Text "Unchecked,checked"']
-  "measured_date" datetime [null,note:'วันที่เวลาที่ทำการตรวจสอบข้อมูล']
-  "measured_time" datetime [null,note:'วันที่เวลาที่ทำการตรวจสอบข้อมูล']
+  "measured_date" datetime(2,7) [null,note:'วันที่เวลาที่ทำการตรวจสอบข้อมูล']
+  "measured_time" datetime(2,7) [null,note:'วันที่เวลาที่ทำการตรวจสอบข้อมูล']
   "service_name" nvarchar(50) [null,note:'ชื่อ Service ของข้อมูลการตรวจวัด']
   "start_Hz" bigint [null,note:'ความถี่ (Hz) เริ่มต้นที่ทำการตรวจวัด']
   "stop_Hz" bigint [null,note:'ความถี่ (Hz) สิ้นสุดที่ทำการตรวจวัด']
-  "max_V/m" decimal(20,4) [note:'ค่า Max ของการตรวจวัดโดยคำนวณจาก V/m']
-  "avg_V/m" decimal(20,4) [note:'ค่า Avg ของการตรวจวัดโดยคำนวณจาก V/m']
-  "rms_V/m" decimal(20,4) [note:'ค่า Rms ของการตรวจวัดโดยคำนวณจาก V/m']
-  "limit_V/m" decimal(20,4) [note:'ค่า Limit ของการตรวจวัดโดยคำนวณจาก V/m']
-  "max_percent" decimal(20,4) [note:'ค่า Max ของการตรวจวัดแบบ %']
-  "avg_percent" decimal(20,4) [note:'ค่า Avg ของการตรวจวัดแบบ %']
-  "rms_percent" decimal(20,4) [note:'ค่า Rms ของการตรวจวัดแบบ %']
-  "max_mA/m" decimal(20,4) [note:'ค่า Max ของการตรวจวัดโดยคำนวณจาก mA/m']
-  "avg_mA/m" decimal(20,4) [note:'ค่า Avg ของการตรวจวัดโดยคำนวณจาก mA/m']
-  "rms_mA/m" decimal(20,4) [note:'ค่า Rms ของการตรวจวัดโดยคำนวณจาก mA/m']
-  "max_mW/m" decimal(20,4) [note:'ค่า Max ของการตรวจวัดโดยคำนวณจาก mW/m']
-  "avg_mW/m" decimal(20,4) [note:'ค่า Avg ของการตรวจวัดโดยคำนวณจาก mW/m']
-  "rms_mW/m" decimal(20,4) [note:'ค่า Rms ของการตรวจวัดโดยคำนวณจาก mW/m']
-  "original_file_name" nvarchar(100) [note:'ชื่อของไฟล์ต้นฉบับที่นำเข้าข้อมูล']
-  "new_file_name" nvarchar(100) [note:'ชื่อของไฟล์ที่นำเข้าข้อมูลสำเร็จ อัพเดทชื่อใหม่ ต่อท้ายด้วย_yyMMddHHmm']
-  "files_path" nvarchar(500) [note:'ชื่อ path ที่เก็บไฟล์หลังจากนำเข้าข้อมูลสำเร็จหรือ Fail(แยกเก็บ)']
-  "created_date" datetime [note:'วันเวลาที่สร้างข้อมูล']
+  "max_V/m" decimal(20,4) [null,note:'ค่า Max ของการตรวจวัดโดยคำนวณจาก V/m']
+  "avg_V/m" decimal(20,4) [null,note:'ค่า Avg ของการตรวจวัดโดยคำนวณจาก V/m']
+  "rms_V/m" decimal(20,4) [null,note:'ค่า Rms ของการตรวจวัดโดยคำนวณจาก V/m']
+  "limit_V/m" decimal(20,4) [null,note:'ค่า Limit ของการตรวจวัดโดยคำนวณจาก V/m']
+  "max_percent" decimal(20,4) [null,note:'ค่า Max ของการตรวจวัดแบบ %']
+  "avg_percent" decimal(20,4) [null,note:'ค่า Avg ของการตรวจวัดแบบ %']
+  "rms_percent" decimal(20,4) [null,note:'ค่า Rms ของการตรวจวัดแบบ %']
+  "max_mA/m" decimal(20,4) [null,note:'ค่า Max ของการตรวจวัดโดยคำนวณจาก mA/m']
+  "avg_mA/m" decimal(20,4) [null,note:'ค่า Avg ของการตรวจวัดโดยคำนวณจาก mA/m']
+  "rms_mA/m" decimal(20,4) [null,note:'ค่า Rms ของการตรวจวัดโดยคำนวณจาก mA/m']
+  "max_mW/m" decimal(20,4) [null,note:'ค่า Max ของการตรวจวัดโดยคำนวณจาก mW/m']
+  "avg_mW/m" decimal(20,4) [null,note:'ค่า Avg ของการตรวจวัดโดยคำนวณจาก mW/m']
+  "rms_mW/m" decimal(20,4) [null,note:'ค่า Rms ของการตรวจวัดโดยคำนวณจาก mW/m']
+  "original_file_name" nvarchar(100) [null,note:'ชื่อของไฟล์ต้นฉบับที่นำเข้าข้อมูล']
+  "new_file_name" nvarchar(100) [null,note:'ชื่อของไฟล์ที่นำเข้าข้อมูลสำเร็จ อัพเดทชื่อใหม่ ต่อท้ายด้วย_yyMMddHHmm']
+  "files_path" nvarchar(500) [null,note:'ชื่อ path ที่เก็บไฟล์หลังจากนำเข้าข้อมูลสำเร็จหรือ Fail(แยกเก็บ)']
+  "created_date" datetime(2,7) [null,note:'วันเวลาที่สร้างข้อมูล']
   note:"ตารางเก็บข้อมูล ( Header ) การกำกับดูแลความปลอดภัยต่อสุขภาพ"
 Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Frequency_Disturbance_Report" {
+ "id" int [not null, increment,note:'ID. ของ Frequency_Disturbance_Report']
+ "chkid" int [not null,note:'ID การตรวจสอบของ oper fieldname ChkID']
+ "add_date" datetime(2,7) [null,note:'วันที่บันทึกจาก oper fieldname DtAdd']
+ "region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
+ "area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
+ "station_name" nvarchar(100) [null,note:'ชื่อสถานีตรวจสอบ oper fieldname StaNaG']
+ "stn_license" nvarchar(100) [null,note:'เลขที่ใบอนุญาต oper fieldname StaNoG']
+ "province" nvarchar(100) [null,note:'ชื่อจังหวัด oper fieldname Province']
+ "aumphoe" nvarchar(100) [null,note:'ชื่ออำเภอ oper fieldname Aumphoe']
+ "tambol" nvarchar(250) [null,note:'ชื่อตำบล oper fieldname Tambol']
+ "sta_locg" nvarchar(max) [null,note:'ที่ตั้ง oper fieldname StaLocG']
+ "freq_src_type" nvarchar(200) [null,note:'ประเภทแหล่งกำเนิด oper fieldname FreqSrcType']
+ "freq_mhzg" nvarchar(200) [null,note:'ความถี่ oper fieldname FreqMhzG']
+ "latitude" nvarchar(50) [null,note:'ละติจูด']
+ "longitude" nvarchar(50) [null,note:'ลองจิจูด']
+ "altitude_above_sealevel" nvarchar(50) [null,note:'ความสูงจากระดับน้ำทะเล']
+ "height_Of_aerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
+ "diss_emitts" nvarchar(200) [null,note:'สาเหตุการรบกวน oper fieldname DisEmitts']
+ "dist_rrk" nvarchar(max) [null,note:'รายละเอียดการรบกวน oper fieldname DistRrk']
+ "dis_chk" nvarchar(max) [null,note:'ความเห็นผู้ตรวจ oper fieldname DisChk']
+ "equ_names" nvarchar(max) [null,note:'เครื่องมือวัด oper fieldname EquNames']
+ "dt_test" datetime(2,7) [null,note:'วันที่ตรวจสอบ oper fieldname DtTest']
+ "dt_rep" datetime(2,7) [null,note:'วันที่รายงาน oper fieldname DtRep']
+ "dt_apv" datetime(2,7) [null,note:'วันที่อนุมัติ oper fieldname DtApv']
+ "apv_status" nvarchar(11) [null,note:'สถานะ oper fieldname ApvStatus']
+ "created_date" datetime(2,7) [not null,note:'วันที่ที่สร้างข้อมูล']
+ note:"ตารางเก็บข้อมูลการตรวจสอบแก้ไขการรบกวนคลื่นวิทยุ [ข้อมูลจาก oper Table Name tbF12_DistbRad ]"
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Frequency_Emission_Report" {
+  "id" int [not null, increment,note:'ID. ของ Frequency_Emission_Report']
+  "chkid" int [not null,note:'ID การตรวจสอบของ oper fieldname ChkID']
+  "add_date" datetime(2,7) [null,note:'วันที่บันทึกจาก oper fieldname DtAdd']
+  "chk_date" datetime(2,7) [null,note:'วันที่ตรวจสอบจาก oper fieldname DtTest']
+  "region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
+  "area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
+  "station_type_id" int [not null,note:'ID. ของ Info_Station_Type (FK.)']
+  "stn_type" nvarchar(250) [null,note:'สถานี oper fieldname StnType']
+  "station_subtype_id" int [not null,note:'ID. ของ Info_Station_SubType (FK.)']
+  "stn_subtype" nvarchar(250) [null,note:'ประเภทสถานี oper fieldname StnSubType']
+  "stn_code" nvarchar(250) [null,note:'รหัสสถานี oper fieldname StnCode']
+  "station_name" nvarchar(250) [null,note:'ชื่อสถานี  oper fieldname StaNaG' ]
+  "freq_mhzg" nvarchar(50) [null,note:'ความถี่ oper fieldname FreqMhzG']
+  "stn_license" nvarchar(50) [null,note:'เลขที่ใบอนุญาต oper fieldname StaNoG']
+  "province" nvarchar(200) [null,note:'ชื่อจังหวัด oper fieldname Province']
+  "aumphoe" nvarchar(200) [null,note:'ชื่ออำเภอ oper fieldname Aumphoe']
+  "tambol" nvarchar(200) [null,note:'ชื่อตำบล oper fieldname Tambol']
+  "sta_locg" nvarchar(450) [null,note:'ที่ตั้งสถานี oper fieldname StaLocG']
+  "latitude" nvarchar(50) [null,note:'ละติจูด']
+  "longitude" nvarchar(50) [null,note:'ลองจิจูด']
+  "altitude_above_sealevel" nvarchar(50) [null,note:'ความสูงจากระดับน้ำทะเล']
+  "height_Of_aerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
+  "opinion_det" nvarchar(max) [null,note:'ผลการตรวจสอบ oper fieldname OpinionDet']
+  "equ_name" nvarchar(max) [null,note:'เครื่องมือวัด oper fieldname EquNames']
+  "docnfno_disp" datetime(2,7) [null,note:'หนังสือแจ้งเตือน oper fieldname DocNFNo_Disp ']
+  "docnfno_date" datetime(2,7) [null,note:'หนังสือแจ้งเตือนวันที่ oper fieldname DtDocNF_Disp']
+  "approve_status" nvarchar(11) [null,note:'สถานะ oper fieldname ApvStatus']
+  "created_date" datetime(2,7) [not null,note:'วันที่ที่สร้างข้อมูล']
+  note:"ตารางเก็บข้อมูลการตรวจสอบมาตรฐานการแพร่ [ข้อมูลจาก oper Table Name tbF11_RadProp]"
+  Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Frequency_NotAllow_Report" {
+  "id" int [not null, increment,note:'ID. ของ Frequency_NotAllow_Report']
+  "chkid" int [not null,note:'ID การตรวจสอบของ oper fieldname ChkID']
+  "chk_date" datetime(2,7) [note:'วันที่ตรวจสอบจาก oper fieldname DtTest']
+  "region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
+  "area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
+  "station_name" nvarchar(250) [null,note:'ชื่อสถานี  oper fieldname StaNaG' ]
+  "freq_mhz" nvarchar(50) [null,note:'ความถี่ oper fieldname FreqMhzG']
+  "province" nvarchar(200) [null,note:'ชื่อจังหวัด oper fieldname Province']
+  "aumphoe" nvarchar(200) [null,note:'ชื่ออำเภอ oper fieldname Aumphoe']
+  "tambol" nvarchar(200) [null,note:'ชื่อตำบล oper fieldname Tambol']
+  "sta_locg" nvarchar(450) [null,note:'ที่ตั้งสถานี oper fieldname StaLocG']
+  "latitude" nvarchar(50) [null,note:'ละติจูด']
+  "longitude" nvarchar(50) [null,note:'ลองจิจูด']
+  "altitude_above_sealevel" nvarchar(50) [null,note:'ความสูงจากระดับน้ำทะเล']
+  "height_Of_aerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
+  "equ_names" nvarchar(max) [null,note:'เครื่องมือวัด oper fieldname EquNames']
+  "apv_status" nvarchar(11) [null,note:'สถานะ oper fieldname ApvStatus']
+  "created_date" datetime(2,7) [not null,note:'วันที่ที่สร้างข้อมูล']
+  note:"ตารางเก็บข้อมูลการตรวจสอบความถี่ที่ไม่ได้รับอนุญาต [ข้อมูลจาก oper Table Name tbF13_NotAllow]"
+  Indexes {
   id [pk]
 }
 }
@@ -136,18 +229,21 @@ Table "dbo"."Health_Safety_Test_Plan" {
   "result_11" int [null,note:'ผลการทดสอบเดือน พ.ย.']
   "actual_12" int [null,note:'แผนการทดสอบเดือน ธ.ค.']
   "result_12" int [null,note:'ผลการทดสอบเดือน ธ.ค.']
-  "original_file_name" nvarchar(100) [note:'ชื่อของไฟล์ต้นฉบับที่นำเข้าข้อมูล']
-  "new_file_name" nvarchar(100) [note:'ชื่อของไฟล์ที่นำเข้าข้อมูลสำเร็จ อัพเดทชื่อใหม่ ต่อท้ายด้วย_yyMMddHHmm']
-  "file_path" nvarchar(500) [note:'ชื่อ path ที่เก็บไฟล์หลังจากนำเข้าข้อมูลสำเร็จหรือ Fail(แยกเก็บ)']
-  "created_by" nvarchar(50) [note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" int [note:'วันเวลาที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [note:'ชื่อของผู้แก้ไขข้อมูล']
-  "modified_date" int [note:'วันเวลาที่แก้ไขข้อมูล']
+  "original_file_name" nvarchar(100) [null,note:'ชื่อของไฟล์ต้นฉบับที่นำเข้าข้อมูล']
+  "new_file_name" nvarchar(100) [null,note:'ชื่อของไฟล์ที่นำเข้าข้อมูลสำเร็จ อัพเดทชื่อใหม่ ต่อท้ายด้วย_yyMMddHHmm']
+  "file_path" nvarchar(500) [null,note:'ชื่อ path ที่เก็บไฟล์หลังจากนำเข้าข้อมูลสำเร็จหรือ Fail(แยกเก็บ)']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" int [null,note:'วันเวลาที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้แก้ไขข้อมูล']
+  "modified_date" int [null,note:'วันเวลาที่แก้ไขข้อมูล']
   note:"ตารางเก็บข้อมูลแผนการกำกับดูแลความปลอดภัยต่อสุขภาพ"
 Indexes {
   id [pk]
 }
 }
+
+/**เช็ค null เพิ่ม**/
+
 
 Table "dbo"."Info_Area" {
   "id" int [not null, increment,note:'ID. ของเขตพื้นที่ในกสทช.']
@@ -155,11 +251,11 @@ Table "dbo"."Info_Area" {
   "name_th" nvarchar(50) [not null,note:'ชื่อภาษาไทยของพื้นที่ในกสทช.']
   "name_en" nvarchar(50) [note:'ชื่อภาษาอังกฤษของพื้นที่ในกสทช.']
   "created_by" nvarchar(50) [note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [note:'วันที่สร้างข้อมูล']
+  "created_date" datetime(2,7) [note:'วันที่สร้างข้อมูล']
   "modified_by" nvarchar(50) [note:'ชื่อของผู้แก้ไขข้อมูล']
-  "modified_date" datetime [note:'วันเวลาที่แก้ไขข้อมูล']
+  "modified_date" datetime(2,7) [note:'วันเวลาที่แก้ไขข้อมูล']
   "deleted_by" nvarchar(50) [note:'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [note:'วันเวลาที่ลบข้อมูล']
+  "deleted_date" datetime(2,7) [note:'วันเวลาที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
   note:"ตารางเก็บข้อมูลเขตของ กสทช."
 Indexes {
@@ -167,77 +263,38 @@ Indexes {
 }
 }
 
-Table "dbo"."Info_Broadcast_Station" {
-  "id" bigint [not null, increment,note:'ID. ของสถานีวิทยุ']
-  "chk_ID" int [note:'รหัส ChkID']
-  "transaction_date" datetime [note:'วันที่ของข้อมูล']
-  "checked_date" datetime [note:'วันที่ที่ตรวจสอบ']
-  "region_id" int [not null,note:'รหัสของภาคในกสทช. (FK.)']
-  "region_name" nvarchar(50) [note:'ชื่อของภาคในกสทช.']
-  "area_id" int [not null,note:'รหัสของเขตในกสทช. (FK.)']
-  "area_name" nvarchar(50) [note:'ชื่อของเขตในกสทช']
-  "station" nvarchar(50) [note:'ลักษณะของสถานี']
-  "station_type_id" int [not null,note:'ID. ของประเภทสถานี (FK.)']
-  "station_type_name" nvarchar(50) [note:'ชื่อของประเภทของสถานี']
-  "station_code" nvarchar(10) [note:'รหัสของสถานี']
-  "station_name" nvarchar(100) [note:'ชื่อของสถานี']
-  "frequency" decimal(10,4) [note:'ความถี่ (MHz)']
-  "license_no" nvarchar(20) [note:'เลขที่ใบอนุญาต']
-  "province_id" int [not null,note:'รหัสของจังหวัด (FK.)']
-  "province_name" nvarchar(50) [note:'ชื่อของจังหวัด']
-  "district_id" int [not null,note:'รหัสของอำเภอ / เขต (FK.)']
-  "district_name" nvarchar(50) [note:'ขื่อของอำเภอ / เขต']
-  "sub_district_id" int [note:'รหัสของตำบล / แขวง']
-  "sub_district_name" nvarchar(50) [note:'ชื่อของตำบล / แขวง']
-  "address" nvarchar(500) [note:'ที่ตั้งของสถานี']
-  "latitude" decimal(12,9) [note:'ละติจูดของสถานี']
-  "longitude" decimal(12,9) [note:'ลองจิจูดของสถานี']
-  "tested_result" ntext [note:'ผลการทดสอบ']
-  "station_status" nvarchar(50) [note:'สถานะของสถานี']
-  "broadcase_start_time" time [note:'ระยะเวลาเริ่มต้นการออกอากาศ']
-  "broadcast_end_time" time [note:'ระยะเวลาสิ้นสุดการออกอากาศ']
-  "created_by" nvarchar(50) [note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [note:'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [note:'วันที่ที่ลบข้อมูล']
+Table "dbo"."Info_Band_Frequency_EMF"{
+  "id" bigint [not null, increment,note:'ID. Band ความถี่ของโทรศัพท์']
+  "frequency" float [null,note:'Band ความถี่ของโทรศัพท์']
+  "frequency_range" nvarchar(50) [null,note:'ช่วงความถี่ของโทรศัพท์']
+  "frequency_start" float [null,note:'ช่วงความถี่เริ่มต้น']
+  "frequency_stop" float [null,note:'ช่วงความถี่สิ้นสุด']
+  "standard_frequency" float [null,note:'ค่ามาตรฐานความปลอดภัย']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้แก้ไขข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันเวลาที่แก้ไขข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันเวลาที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
-  note:"ตารางเก็บข้อมูลเสาส่งโทรศัพท์มือถือ"
-Indexes {
-  id [pk]
-}
+  note:"Band ความถี่ของโทรศัพท์"
+  Indexes{
+      id [pk]
+  }
 }
 
 Table "dbo"."Info_Business_Type" {
   "id" int [not null, increment,note:'ID. ของประเภทกิจการ']
   "name_th" nvarchar(100) [not null,note:'ชื่อภาษาไทยของประเภทกิจการ']
-  "name_en" nvarchar(100) [note:'ชื่อภาษาอังกฤษของประเภทกิจการ']
-  "created_by" nvarchar(50) [note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [note:'ชื่อของผู้บข้อมูล']
-  "deleted_date" datetime [note:'วันที่ที่ลบข้อมูล']
+  "name_en" nvarchar(100) [null,note:'ชื่อภาษาอังกฤษของประเภทกิจการ']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้บข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
   note:"ตารางเก็บข้อมูลประเภทกิจการ"
-Indexes {
-  id [pk]
-}
-}
-
-Table "dbo"."Info_Company_Type" {
-  "id" int [not null, increment,note:'ID. ของประเภทหน่วยงาน']
-  "name_th" nvarchar(100) [not null,note:'ชื่อภาษาไทยของประเภทหน่วยงาน']
-  "name_en" nvarchar(100) [note:'ชื่อภาษาอังกฤษของประเภทหน่วยงาน']
-  "created_by" nvarchar(50) [note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [note:'ชื่อของผู้บข้อมูล']
-  "deleted_date" datetime [note:'วันที่ที่ลบข้อมูล']
-  "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
-  note:"ตารางเก็บข้อมูลประเภทบริษัท"
 Indexes {
   id [pk]
 }
@@ -250,12 +307,12 @@ Table "dbo"."Info_District" {
   "name_en" nvarchar(50) [note:'ชื่อภาษาอังกฤษของอำเภอ / เขต']
   "sort_order_th" int [null,note:'ลำดับในการเรียงตามตัวอักษรภาษาไทย']
   "sort_order_en" int [null,note:'ลำดับในการเรียงตามตัวอักษรภาษาอังกฤษ']
-  "created_by" nvarchar(50) [note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [note:'ชื่อของผู้สร้างข้อมูล']
-  "deleted_date" datetime [note:'วันที่ที่ลบข้อมูล']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
   note:"ตารางเก็บข้อมูลอำเภอ / เขต"
 Indexes {
@@ -263,16 +320,17 @@ Indexes {
 }
 }
 
+
 Table "dbo"."Info_Disturbance_Status" {
   "id" int [not null, increment,note:'ID. ของสถานะการรบกวน']
   "name_th" nvarchar(100) [not null,note:'ชื่อภาษาไทยของสถานะการรบกวน']
-  "name_en" nvarchar(100) [note:'ชื่อภาษาอังกฤษของสถานะการรบกวน']
-  "created_by" nvarchar(50) [note:'ชื่อของผูสร้างข้อมูล']
-  "created_date" datetime [note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [note:'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [note:'วันที่ที่ลบข้อมูล']
+  "name_en" nvarchar(100) [null,note:'ชื่อภาษาอังกฤษของสถานะการรบกวน']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผูสร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
   note:"ตารางเก็บข้อมูลสถานะของการรบกวน"
 Indexes {
@@ -283,13 +341,13 @@ Indexes {
 Table "dbo"."Info_Disturbance_Type" {
   "id" int [not null, increment,note:'ID. ของประเภทการรบกวน']
   "name_th" nvarchar(100) [not null,note:'ชื่อภาษาไทยของประเภทการรบกวน']
-  "name_en" nvarchar(100) [note:'ชื่อภาษาอังกฤษของประเภทการรบกวน']
-  "created_by" nvarchar(50) [note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [note:'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [note:'วันที่ที่ลบข้อมูล']
+  "name_en" nvarchar(100) [null,note:'ชื่อภาษาอังกฤษของประเภทการรบกวน']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
   note:"ตารางเก็บข้อมูลประเภทการรบกวน"
 Indexes {
@@ -305,19 +363,20 @@ Table "dbo"."Info_Frequency" {
   "start_frequency" decimal(20, 4) [null,note:'ความถี่เริ่มต้น']
   "start_unit" nvarchar(10) [null,note:'หน่วยนับของความถี่เริ่มต้น']
   "stop_frequency" decimal(20, 4) [null,note:'ความถี่สิ้นสุด']
-  "frequency_range" nvarchar(50) [null,note:'ช่วงของความถี่']
   "stop_unit" nvarchar(10) [null,note:'หน่วยนับของความถี่สิ้นสุด']
+  "frequency_range" nvarchar(50) [null,note:'ช่วงของความถี่']
   "bandwidth" decimal(20, 4) [null,note:'ค่าแบรนวิธที่ใช้ในการกำหนดความถี่']
   "bandwidth_unit" nvarchar(10) [null,note:'หน่วยนับของค่าแบรนวิธ']
   "frequency_amount" int [null,note:'จำนวนของช่องความถี่ที่ได้จากการแบ่งตามค่าแบรนวิธ']
   "fpo_description" nvarchar(255) [null,note:'รายละเอียดของ fpo']
   "fpo_comment" nvarchar(255) [null,note:'ความเห็นของ fpo']
+  "sort_frequency" int [null,note:'เลขการเรียงลำดับช่วงความถี่']
   "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [null,note:'วันที่ที่สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
   "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
   "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [null,note:'วันที่ที่ลบข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
   note:"ตารางเก็บข้อมูลความถี่แยกตามแบรนด์"
 Indexes {
@@ -331,11 +390,11 @@ Table "dbo"."Info_Frequency_Detail" {
   "frequency_id" int [not null,note:'ID. ของชุดความถี่ (FK.)']
   "frequency" decimal(20, 4) [null,note:'ความถี่ที่กำหนดในแต่ละชุดความถี่']
   "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [null,note:'วันที่ที่สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
   "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
   "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [null,note:'วันที่ที่ลบข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
   note:"ตารางเก็บข้อมูลความถี่แยกตามแบรนด์"
 Indexes {
@@ -343,105 +402,18 @@ Indexes {
 }
 }
 
-
 Table "dbo"."Info_Geography" {
   "id" int [not null, increment,note:'ID. ของภาคในประเทศ']
   "name_th" nvarchar(50) [not null,note:'ชื่อภาษาไทยของภาคในประเทศ']
-  "name_en" nvarchar(50) [note:'ชื่อภาษาอังกฤษของภาคในประเทศ']
-  "created_by" nvarchar(50) [note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [note:'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [note:'วันที่ที่ลบข้อมูล']
+  "name_en" nvarchar(50) [null,note:'ชื่อภาษาอังกฤษของภาคในประเทศ']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
   note:"ตารางเก็บข้อมูลภาคตามภูมิศาสตร์"
-Indexes {
-  id [pk]
-}
-}
-
-Table "dbo"."Info_License_Type" {
-  "id" int [not null, increment,note:'ID. ของประเภท.ใบอนุญาต']
-  "name_th" nvarchar(100) [not null,note:'ชื่อภาษาไทยของประเภทใบอนุญาต']
-  "name_en" nvarchar(100) [note:'ชื่อภาษาอังกฤษของประเภทใบอนุญาต']
-  "created_by" nvarchar(50) [note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [note:'ชื่อของผู้บข้อมูล']
-  "deleted_date" datetime [note:'วันที่ที่ลบข้อมูล']
-  "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
-  note:"ตารางเก็บข้อมูลประเภทใบอนุญาต"
-Indexes {
-  id [pk]
-}
-}
-
-Table "dbo"."Info_Other_Station" {
-  "id" bigint [not null, increment,note:'ID. ของสถานี']
-  "owner_type_id" int [not null,note:'ID. ของประเภทผู้ครอบครอง (FK.)']
-  "owner_type_name" nvarchar(100) [note:'ชื่อของประเภทผู้ครอบครอง']
-  "region_id" int [not null,note:'รหัสของภาคในกสทช. (FK.)']
-  "region_name" nvarchar(50) [note:'ชื่อของภาคในกสทช.']
-  "area_id" int [note:'รหัสของเขตในกสทช. (FK.)']
-  "area_name" nvarchar(50) [not null,note:'ชื่อของเขตในกสทช.']
-  "station_type_id" int [not null,note:'ID. ของประเภทสถานี (FK.)']
-  "station_type_name" nvarchar(50) [not null,note:'ชื่อของประเภทสถานี']
-  "station_code" nvarchar(10) [not null,note:'รหัสของสถานี']
-  "station_name" nvarchar(100) [not null,note:'ชื่อของสถานี']
-  "frequency" nvarchar(50) [not null,note:'ความถี่ (MHz)']
-  "ฺbusiness_name" nvarchar(255) [not null,note:'ชื่อของผู้ประกอบการ']
-  "company_type_id" int [not null,note:'ID. ของประเภทหน่วยงาน (FK.)']
-  "company_type_name" nvarchar(100) [not null,note:'ชื่อของประเภทหน่วยงาน']
-  "license_type_id" int [not null,note:'ID. ของประเภทใบอนุญาต (FK.)']
-  "license_type_name" nvarchar(100) [not null,note:'ชื่อของประเภทใบอนุญาต']
-  "license_no" nvarchar(20) [not null,note:'เลขที่ใบอนุญาต']
-  "license_date" datetime [not null,note:'วันที่ที่ออกใบอนุญาต']
-  "province_id" int [not null,note:'รหัสของจังหวัด (FK.)']
-  "province_name" nvarchar(50) [not null,note:'ชื่อของจังหวัด']
-  "district_id" int [not null,note:'รหัสของอำเภอ / เขต (FK.)']
-  "district_name" nvarchar(50) [not null,note:'ขื่อของอำเภอ / เขต']
-  "sub_district_id" int [not null,note:'รหัสของตำบล / แขวง']
-  "sub_district_name" nvarchar(50) [not null,note:'ชื่อของตำบล / แขวง']
-  "address" nvarchar(500) [not null,note:'ที่ตั้งของสถานี']
-  "latitude" decimal(12,9) [not null,note:'ละติจูดของสถานี']
-  "longitude" decimal(12,9) [not null,note:'ลองจิจูดของสถานี']
-  "contract_name" nvarchar(100) [not null,note:'ชื่อผู้ประสานงาน']
-  "contract_telephone" nvarchar(50) [not null,note:'เบอร์โทรสำหรับติดต่อ']
-  "altitude_above_sea_level" int [not null,note:'ความสูงจากระดับน้ำทะเล (M)']
-  "aerial_type" nvarchar(100) [not null,note:'ชนิดสายอากาศ']
-  "expansion_rate_of_aerial" decimal(10,2) [not null,note:'อัตราการขยายเสาอากาศ (DBI)']
-  "sending" int [not null,note:'กำลังส่ง (W)']
-  "height_of_aerial" int [not null,note:'ความสูงของเสาอากาศ (M)']
-  "test_of_frequency" decimal(10,4) [not null,note:'ความถี่ที่วัดได้ (MHz)']
-  "broadcast_start_time" time [not null,note:'ระยะเวลาเริ่มต้นการออกอากาศ']
-  "broadcast_end_time" time [not null,note:'ระยะเวลาสิ้นสุดการออกอากาศ']
-  "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [not null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [not null,note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [not null,note:'ชื่อของผู้บข้อมูล']
-  "deleted_date" datetime [not null,note:'วันที่ที่ลบข้อมูล']
-  "Status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
-  note:"ตารางเก็บข้อมูล อปท. , มูลนิธิ , วิทยุชุมชน"
-Indexes {
-  id [pk]
-}
-}
-
-Table "dbo"."Info_Owner_Type" {
-  "id" int [not null, increment,note:'ID. ของประเภทผู้ครอบครอง']
-  "name_th" nvarchar(100) [not null,note:'ชื่อภาษาไทยของประเภทผู้ครอบครอง']
-  "name_en" nvarchar(100) [not null,note:'ชื่อภาษาอังกฤษของประเภทผู้ครอบครอง']
-  "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [not null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [not null,note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [not null,note:'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [not null,note:'วันที่ที่ลบข้อมูล']
-  "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
-  note:"ตารางเก็บข้อมูลประเภทเจ้าของกิจการ"
 Indexes {
   id [pk]
 }
@@ -451,15 +423,15 @@ Table "dbo"."Info_Province" {
   "id" int [not null,note:'ID. ของจังหวัด']
   "geography_id" int [not null,note:'ID. ของภูมิภาค (FK.)']
   "name_th" nvarchar(50) [not null,note:'ชื่อภาษาไทยของจังหวัด']
-  "name_en" nvarchar(50) [not null,note:'ชื่อภาษาอังกฤษของจังหวัด']
+  "name_en" nvarchar(50) [ null,note:'ชื่อภาษาอังกฤษของจังหวัด']
   "sort_order_th" int [null,note:'ลำดับในการเรียงตามตัวอักษรภาษาไทย']
   "sort_order_en" int [null,note:'ลำดับในการเรียงตามตัวอักษรภาษาอังกฤษ']
-  "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [not null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [not null,note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [not null,note:'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [not null,note:'วันที่ที่ลบข้อมูล']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
   note:"ตารางเก็บข้อมูลจังหวัด"
 Indexes {
@@ -467,34 +439,36 @@ Indexes {
 }
 }
 
-Table "dbo"."Info_Radio_Station" {
-  "id" int [not null, increment,note:'ID. ของสถานีวิทยุการจายเสียง']
-  "name_th" nvarchar(50) [not null,note:'ชื่อภาษาไทยของสถานีวิทยุการจายเสียง']
-  "name_en" nvarchar(50) [not null,note:'ชื่อภาษาอังกฤษของสถานีวิทยุการจายเสียง']
-  "station_unit" nvarchar(10) [not null,note:'หน่วยนับของสถานีวิทยุการจายเสียง']
-  "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [not null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [not null,note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [not null,note:'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [not null,note:'วันที่ที่ลบข้อมูล']
+Table "dbo"."Info_Radio_Frequency_Type"{
+  "id" int [not null,note:'ID. ของประเภทความถี่สถานีวิทยุ']
+  "radio_frequency" nvarchar(50) [null,note:'ย่านความถี่']
+  "radio_type_name" nvarchar(50) [null,note:'ชื่อประเภทการใช้ความถี่']
+  "frequency_start" decimal(20,4) [null,note:'ช่วงความถี่เริ่มต้น']
+  "frequency_stop" decimal(20,4) [null,note:'ช่วงความถี่สิ้นสุด']
+  "frequency_description" nvarchar(50) [null,note:'คำอธิบายประเภทกิจการ']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้แก้ไขข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันเวลาที่แก้ไขข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันเวลาที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
-  note:"ตารางเก็บข้อมูลสถานีวิทยุ"
-Indexes {
-  id [pk]
-}
+  note:"ตารางเก็บข้อมูล"
+  Indexes{
+      id [pk]
+  }
 }
 
 Table "dbo"."Info_Region" {
   "id" int [not null, increment,note:'ID. ของภาคในกสทช.']
   "name_th" nvarchar(50) [not null,note:'ชื่อภาษาไทยของภาคในกสทช']
   "name_en" nvarchar(50) [not null,note:'ชื่อภาษาอังกฤษของภาคในกสทช']
-  "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [not null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [not null,note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [not null,note:'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [not null,note:'วันที่ที่ลบข้อมูล']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
    note:"ตารางเก็บข้อมูลภาคของ กสทช."
 Indexes {
@@ -502,20 +476,72 @@ Indexes {
 }
 }
 
+Table "dbo"."Info_Station_SubType" {
+  "id" int [not null, increment,note:'ID. ของประเภทสถานีย่อย']
+  "station_type_id" int [not null,note:'ID. ของประเภทสถานี']
+  "name_th" nvarchar(100) [not null,note:'ชื่อภาษาไทยของประเภทสถานี']
+  "name_en" nvarchar(100) [ null,note:'ชื่อภาษาอังกฤษของประเภทสถานี']
+  "created_by" nvarchar(50) [ null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [ null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [ null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [ null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [ null,note:'ชื่อของผู้บข้อมูล']
+  "deleted_date" datetime(2,7) [ null,note:'วันที่ที่ลบข้อมูล']
+  "status" varchar(1) [ null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
+   note:"ตารางเก็บข้อมูลประเภทสถานี"
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Station_Type" {
+  "id" int [not null, increment,note:'ID. ของประเภทสถานี']
+  "name_th" nvarchar(100) [not null,note:'ชื่อภาษาไทยของประเภทสถานี']
+  "name_en" nvarchar(100) [null,note:'ชื่อภาษาอังกฤษของประเภทสถานี']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้บข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
+  "status" varchar(1) [null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
+   note:"ตารางเก็บข้อมูลประเภทสถานี"
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."Info_Stations"{
+  "id" int [not null, increment,note:'ID.สถานีข้อมูล TCI']
+  "station_name_th" nvarchar(100) [not null,note:'ชื่อภาษาไทยของสถานี']
+  "station_name_en" nvarchar(100) [null,note:'ชื่อภาษาอังกฤษของสถานี']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้บข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
+  "status" varchar(1) [null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
+  note:"ตารางเก็บข้อมูลสถานี TCI"
+  Indexes{
+     id [pk]
+  }
+}
+
 Table "dbo"."Info_Sub_District" {
   "id" int [not null,note:'ID. ของตำบล / แขวง']
   "province_id" int [not null,note:'ID. ของจังหวัด (FK.)']
   "district_id" int [not null,note:'ID. ของอำเภอ / เขต (FK.)']
   "name_th" nvarchar(50) [not null,note:'ชื่อภาษาไทยของตำบล / แขวง']
-  "name_en" nvarchar(50) [not null,note:'ชื่อภาษาอังกฤษของตำบล / แขวง']
+  "name_en" nvarchar(50) [null,note:'ชื่อภาษาอังกฤษของตำบล / แขวง']
   "sort_order_th" int [null,note:'ลำดับในการเรียงตามตัวอักษรภาษาไทย']
   "sort_order_en" int [null,note:'ลำดับในการเรียงตามตัวอักษรภาษาอังกฤษ']
-  "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [not null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [not null,note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [not null,note:'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [not null,note:'วันที่ที่ลบข้อมูล']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
    note:"ตารางเก็บข้อมูลตำบล / แขวง"
 Indexes {
@@ -529,17 +555,58 @@ Table "dbo"."Info_Zipcode" {
   "district_id" int [not null,note:'ID. ของอำเภอ (FK.)']
   "sub_district_id" int [not null,note:'ID. ของตำบล / แขวง (FK.)']
   "code" varchar(5) [not null,note:'รหัสไปรษณีย์']
-  "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [not null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [not null,note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [not null,note:'ชื่อของผู้ลบข้อมูล']
-  "deleted_date" datetime [not null,note:'วันที่ที่ลบข้อมูล']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
   "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
    note:"ตารางเก็บข้อมูลรหัสไปรษณีย์"
 Indexes {
   id [pk]
 }
+}
+
+Table "dbo"."Radio_BaseStation"{
+   "id" int [not null, increment,note:'ID. ของสถานีวิทยุชุมชน']
+    "info_region_id" int [null,note:'ID รหัสข้อมูลภาค']
+    "info_area_id" int [null,note:'ID รหัสข้อมูลเขต']
+    "info_station_type_id" int [null,note:'ID รหัสข้อมูลประเภทสถานี']
+    "info_station_subtype_id" int [null,note:'ID รหัสข้อมูลประเภทสถานีย่อย']
+    "station_code" nvarchar(255) [null,note:'รหัสสถานี']
+    "station_description" nvarchar(255) [null,note:'คำอธิบายสถานี']
+    "frequency" decimal(20,4) [null,note:'ความถี่ที่สถานีใช้']
+    "business_name" nvarchar(255) [null,note:'ชื่อธุระกิจ']
+    "company_type" nvarchar(255) [null,note:'ประเภทบริษัท']
+    "license_type" nvarchar(255) [null,note:'ประเภทใยอนุญาต']
+    "license_no" nvarchar(255) [null,note:'เลขหนังสืออนุญาต']
+    "license_date" datetime(2,7) [null,note:'วันที่อนุญาต']
+    "info_province_id" int [null,note:'ID รหัสข้อมูลจังหวัด']
+    "info_province_name" nvarchar(255) [null,note:'ชื่อข้อมูลจังหวัด']
+    "info_district_id" int [null,note:'ID รหัสข้อมูลอำเภอ']
+    "info_district_name" nvarchar(255) [null,note:'ชื่อข้อมูลอำเภอ']
+    "info_subdistrict_id" int [null,note:'ID รหัสข้อมูลตำบล']
+    "info_subdistrict_name" nvarchar(255) [null,note:'ชื่อข้อมูลตำบล']
+    "info_zipcode_id" int [null,note:'ID ข้อมูลรหัสไปรษณีย์']
+    "postcode" nvarchar(5) [null,note:'เลขรหัสไปรษณีย์']
+    "address" nvarchar(255) [null,note:'ที่ตั้งสถานี']
+    "latitude" float [null,note:'พิกัดละติจูด']
+    "longitude" float [null,note:'พิกัดลองจิจูด']
+    "contact_name" nvarchar(255) [null,note:'ชื่อผู้ติดต่อ']
+    "contact_telephone" nvarchar(255) [null,note:'เบอร์โทรศัพท์ติดต่อ']
+    "altitude_above_sea_level" decimal(18,2) [null,note:'ความจากสูงระดับน้ำทะเล']
+    "aerial_type" nvarchar(255) [null,note:'ชนิดสายอากาศ']
+    "expansion_rate_of_aerial" decimal(18,2) [null,note:'อัตราการขยายเสาอากาศ (DBI)']
+    "sending" int [null,note:'อัตรากำลังส่งคลื่น']
+    "heigth_of_aerial" decimal(18,2) [null,note:'ความสูงของเสาอากาศ (M)']
+    "test_of_frequency" decimal(20,4) [null,note:'ความถี่ที่วัดได้']
+    "source_data" nvarchar(5) [null,note:'แหล่งข้อมูล']
+    "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+   note:"ตารางเก็บข้อมูลสถานีวิทยุชุมชน"
+  Indexes{
+  id [pk]
+  }
 }
 
 Table "dbo"."Radio_Emission_Test_Plan" {
@@ -575,18 +642,88 @@ Table "dbo"."Radio_Emission_Test_Plan" {
   "result_12" int [null,note:'ผลการทดสอบเดือน ธ.ค.']
   "original_file_name" nvarchar(100) [not null,note:'ชื่อของไฟล์ต้นฉบับที่นำเข้าข้อมูล']
   "new_file_name" nvarchar(100) [not null,note:'ชื่อของไฟล์หลังจากที่นำเข้าข้อมูล']
-  "file_path" nvarchar(500) [not null,note:'ชื่อ path ที่เก็บไฟล์หลังจากนำเข้าข้อมูล']
-  "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" int [not null,note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [not null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" int [not null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "file_path" nvarchar(500) [null,note:'ชื่อ path ที่เก็บไฟล์หลังจากนำเข้าข้อมูล']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" int [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" int [null,note:'วันที่ที่ปรับปรุงข้อมูล']
    note:"ตารางเก็บข้อมูลแผนการตรวจสอบมาตรฐานการแพร่"
 Indexes {
   id [pk]
 }
 }
-Table "dbo"."TCI_Data_Report" {
-  "id" int [not null, increment,note:'ID. ของ TCI_Data_Report']
+Table "dbo"."Radio_Frequency_Station"{
+  "id" int [not null, increment,note:'ID. ของ Radio_Frequency_Station']
+  "info_radio_frequency_type_id" int [not null,note:'ID รหัสข้อมูลประเภทความถี่สถานีวิทยุ']
+  "radio_frequency" nvarchar(50) [null,note:'ย่านความถี่']
+  "frequency_range" decimal(20,4) [null,note:'ช่องความถี่']
+  "bandwidth" nvarchar(50) [null,note:'Band Width']
+  "frequency_recive" decimal(20,4) [null,note:'ความถี่ภาครับ']
+  "frequency_send" decimal(20,4) [null,note:'ความถี่ส่ง']
+  "frequency_users" nvarchar(250) [null,note:'ผู้ใช้คลื่นความถี่']
+  "letter_of_authorization" nvarchar(50) [null,note:'หนังสืออนุญาต']
+  "station_name" nvarchar(50) [null,note:'ชื่อสถานี']
+  "station_address" nvarchar(50) [null,note:'ที่ตั้งสถานี']
+  "send_power" nvarchar(50) [null,note:'กำลังส่งคลื่น']
+  "height_of_aerial" nvarchar(50) [null,note:'ระดับความสูงเสาส่ง']
+  "latitude" float [null,note:'พิกัดละติจูด']
+  "longitude" float [null,note:'พิกัดลองจิจูด']
+  "common_frequency_users" nvarchar(50) [ null,note:'ผุ้ใช้ความถี่ร่วม']
+  "business" nvarchar(50) [null,note:'ประเภทกิจการ']
+  "implementation" nvarchar(50) [null,note:'การนำไปใช้งาน']
+  "status" nvarchar(50) [null,note:'สถานะการใช้งาน']
+  "authorization_start_date" datetime(2,7) [null,note:'วันที่อนุญาต']
+  "authorization_end_date" datetime(2,7) [null,note:'วันที่สิ้นสุดการอนุญาต']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+  note:"ตารางเก็บข้อมูลสถานี อปท และมูลนิธิ"
+  Indexes{
+     id [pk]
+  }
+}
+
+Table "dbo"."Task_Event_log" {
+  "id" bigint [not null, increment,note:'ID. ของ Task_Event_log']
+  "info_region_id" int [not null,note:'ID. ของ Info_Region (FK.)']
+  "info_area_id" int [not null,note:'ID. ของ Info_Area (FK.)']
+  "upload_dir_name" nvarchar(250) [not null,note:'ชื่อพาธที่เอาไฟล์ขึ้นไปเก็บ']
+  "upload_file_name" nvarchar(250) [not null,note:'ชื่อไฟล์ขึ้นอัพโหลดขึ้นไปเก็บ']
+  "upload_file_size" float [not null,note:'ขนาดไฟล์ที่ทำการอัพโหลด']
+  "upload_file_ext" nvarchar(5) [not null,note:'นามสกุลไฟล์ที่ทำการอัพโหลด']
+  "new_dir_name" nvarchar(250) [not null,note:'ชื่อพาธที่อ่านไฟล์เสร็จแล้วย้ายไปเก็บ']
+  "new_file_name" nvarchar(250) [not null,note:'ชื่อไฟล์ที่อ่านเสร็จแล้วย้ายไปเก็บ ให้ใช้(_yyMMddHHmmss) ต่อท้าย']
+  "task_event_datetime(2,7)" datetime(2,7) [not null,note:'วันเวลาที่ Job เข้ามาอ่านไฟล์']
+  "file_status" smallint [not null,note:'สถานะไฟล์ 0=รอ Job อ่านเข้าไปเก็บในฐานข้อมูล ,1=Job อ่านเข้าเก็บลงฐานข้อมูลสำเร็จ,2=Job ทำการอ่านไฟล์ลงฐานข้อมูลไม่สำเร็จ']
+  "created_by" nvarchar(50) [not null,note:'ผู้ที่ทำการอัพโหลดข้อมูล']
+  "created_date" datetime(2,7) [not null,note:'วันที่ที่อัพโหลดข้อมูล']
+  note:"ตารางเก็บข้อมูล Log สำหรับตรวจสอบการ Upload ข้อมูลและ Job ทำการอ่านเข้าไปเก็บลงฐานข้อมูล"
+Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."TCI_Data_Average_Report" {
+  "id" int [not null, increment,note:'ID. ของ TCI_Data_Average_Report']
+  "report_year" int [not null,note:'ปีที่คำนวณข้อมูลรายงาน']
+  "report_month" int [not null,note:'เดือนที่คำนวณข้อมูลรายงาน']
+  "report_quarter" int [not null,note:'ไตรมาสที่คำนวณข้อมูลรายงาน']
+  "report_region" int [not null,note:'ID. ของภาคในกสทช.']
+  "report_area" int [not null,note:'ID. ของเขตในกสทช.']
+  "report_station" nvarchar(255) [not null,note:'ชื่อสถานีภายในเขต']
+  "frequency_id" int [not null,note:'ID. ของความถี่แยกตาม band (FK.)']
+  "band" int [not null,note:'หมายเลขของ Band']
+  "frequency" nvarchar(50) [not null,note:'ช่วงความถี่ของแต่ละ Band']
+  "value_average" decimal [not null,note:'ค่าเฉลี่ย Occupancy']
+  "sort_item" int [not null,note:'การเรียงลำดับ Band']
+  "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [not null,note:'วันที่ที่สร้างข้อมูล']
+  note:"ตารางเก็บข้อมูลการคำนวณสรุปการใช้คลื่นความถี่"
+  Indexes {
+  id [pk]
+}
+}
+
+Table "dbo"."TCI_Data_Maximum_Report" {
+  "id" int [not null, increment,note:'ID. ของ TCI_Data_Average_Report']
   "report_year" int [not null,note:'ปีที่คำนวณข้อมูลรายงาน']
   "report_month" int [not null,note:'เดือนที่คำนวณข้อมูลรายงาน']
   "report_quarter" int [not null,note:'ไตรมาสที่คำนวณข้อมูลรายงาน']
@@ -598,13 +735,15 @@ Table "dbo"."TCI_Data_Report" {
   "frequency" nvarchar(50) [not null,note:'ช่วงความถี่ของแต่ละ Band']
   "count_value_50" int [not null,note:'ผลการนับค่าข้อมูล maximum = 50']
   "count_value_100" int [not null,note:'ผลการนับค่าข้อมูล maximum = 100']
+  "sort_item" int [not null,note:'การเรียงลำดับ Band']
   "created_by" nvarchar(50) [not null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
+  "created_date" datetime(2,7) [not null,note:'วันที่ที่สร้างข้อมูล']
   note:"ตารางเก็บข้อมูลการคำนวณสรุปการใช้คลื่นความถี่"
   Indexes {
   id [pk]
 }
 }
+
 Table "dbo"."TCI_Occupancy_Report" {
   "id" bigint [not null, increment,note:'ID. ของ TCI_Occupancy_Report']
   "report_year" int [not null,note:'ปีของข้อมูลการครอบครอง']
@@ -615,8 +754,8 @@ Table "dbo"."TCI_Occupancy_Report" {
   "storage_interval" nvarchar(20) [not null,note:'ค่า Storeage Interval ของข้อมูลการครอบครอง']
   "operator_id" nvarchar(100) [not null,note:'ค่า Operator ID. ของข้อมูลการครอบครอง']
   "message_length" int [not null,note:'ค่า Message Length ของข้อมูลการครอบครอง']
-  "start_time" datetime [not null,note:'เวลาเริ่มต้นของของข้อมูลการครอบครอง']
-  "stop_time" datetime [not null,note:'เวลาสิ้นสุดของข้อมูลการครอบครอง']
+  "start_time" datetime(2,7) [not null,note:'เวลาเริ่มต้นของของข้อมูลการครอบครอง']
+  "stop_time" datetime(2,7) [not null,note:'เวลาสิ้นสุดของข้อมูลการครอบครอง']
   "threshold_method" nvarchar(100) [not null,note:'ค่าของ ThresholdMethod']
   "duration" nvarchar(100) [not null,note:'ระยะเวลาในการดำเนินการ']
   "station_name" nvarchar(100) [not null,note:'ชื่อของสถานี']
@@ -628,7 +767,7 @@ Table "dbo"."TCI_Occupancy_Report" {
   "original_file_name" nvarchar(100) [not null,note:'ชื่อของไฟล์ต้นฉบับที่นำเข้าข้อมูล']
   "new_file_name" nvarchar(100) [not null,note:'ชื่อของไฟล์หลังจากที่นำเข้าข้อมูล']
   "files_path" nvarchar(500) [not null,note:'ชื่อ path ที่เก็บไฟล์หลังจากนำเข้าข้อมูล']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
+  "created_date" datetime(2,7) [not null,note:'วันที่ที่สร้างข้อมูล']
    note:"ตารางเก็บข้อมูล ( Header ) การตรวจสอบการครอบครองความถี่"
 Indexes {
   id [pk]
@@ -648,175 +787,32 @@ Table "dbo"."TCI_Occupancy_Report_Detail" {
   "average_occupancy_percent" int [not null,note:'ค่าของ AverageOccupancy %']
   "maximum_field_strength_dBuV/m" int [not null,note:'ค่าของ MaximumFieldStrength(dBuV/m)']
   "average_field_strength_dBuV/m" int [not null,note:'ค่าของ AverageFieldStrength(dBuV/m)']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
+  "created_date" datetime(2,7) [not null,note:'วันที่ที่สร้างข้อมูล']
   note:"ตารางเก็บข้อมูล ( Detail ) การตรวจสอบการครอบครองความถี่"
 Indexes {
   id [pk]
 }
 }
 
-Table "dbo"."Info_Station_Type" {
-  "id" int [not null, increment,note:'ID. ของประเภทสถานี']
-  "name_th" nvarchar(100) [not null,note:'ชื่อภาษาไทยของประเภทสถานี']
-  "name_en" nvarchar(100) [null,note:'ชื่อภาษาอังกฤษของประเภทสถานี']
-  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [null,note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [null,note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้บข้อมูล']
-  "deleted_date" datetime [null,note:'วันที่ที่ลบข้อมูล']
-  "status" varchar(1) [null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
-   note:"ตารางเก็บข้อมูลประเภทสถานี"
-Indexes {
-  id [pk]
-}
+Table "dbo"."TCI_Organization_Allowcated"{
+  "id" int [not null, increment,note:'ID. ของ TCI_Organization_Allowcated']
+  "frequency" decimal(20,4) [not null,note:'ค่าของ Frequency(MHz)']
+  "info_region_id"  int [not null,note:'ID. ของ Info_Region (FK.)']
+  "info_area_id" int [not null,note:'ID. ของ Info_Area (FK.)']
+  "device_name" nvarchar(255) [null,note:'อุปกรณ์ตรวจสอบ']
+  "organizations" nvarchar(255) [null,note:'ชื่อหน่วยงาน']
+  "area_users" nvarchar(255) [null,note:'ผู้ใช้คลื่นความถี่ร่วม']
+  "created_date" datetime(2,7) [not null,note:'วันที่ที่สร้างข้อมูล']
+  note:"ตารางเก็บข้อมูลหน่วยงานผู้ใช้คลื่นความถี่"
+  Indexes{
+    id [pk]
+  }
 }
 
-Table "dbo"."Info_Station_SubType" {
-  "id" int [not null, increment,note:'ID. ของประเภทสถานีย่อย']
-  "station_type_id" int [not null,note:'ID. ของประเภทสถานี']
-  "name_th" nvarchar(100) [not null,note:'ชื่อภาษาไทยของประเภทสถานี']
-  "name_en" nvarchar(100) [ null,note:'ชื่อภาษาอังกฤษของประเภทสถานี']
-  "created_by" nvarchar(50) [ null,note:'ชื่อของผู้สร้างข้อมูล']
-  "created_date" datetime [ null,note:'วันที่ที่สร้างข้อมูล']
-  "modified_by" nvarchar(50) [ null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
-  "modified_date" datetime [ null,note:'วันที่ที่ปรับปรุงข้อมูล']
-  "deleted_by" nvarchar(50) [ null,note:'ชื่อของผู้บข้อมูล']
-  "deleted_date" datetime [ null,note:'วันที่ที่ลบข้อมูล']
-  "status" varchar(1) [ null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
-   note:"ตารางเก็บข้อมูลประเภทสถานี"
-Indexes {
-  id [pk]
-}
-}
-
-Table "dbo"."Frequency_Emission_Report" {
-  "id" int [not null, increment,note:'ID. ของ Frequency_Emission_Report']
-  "chkid" int [not null,note:'ID การตรวจสอบของ oper fieldname ChkID']
-  "add_date" datetime [note:'วันที่บันทึกจาก oper fieldname DtAdd']
-  "chk_date" datetime [note:'วันที่ตรวจสอบจาก oper fieldname DtTest']
-  "region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
-  "area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
-  "station_type_id" int [not null,note:'ID. ของ Info_Station_Type (FK.)']
-  "stn_type" nvarchar(250) [null,note:'สถานี oper fieldname StnType']
-  "station_subtype_id" int [not null,note:'ID. ของ Info_Station_SubType (FK.)']
-  "stn_subtype" nvarchar(250) [null,note:'ประเภทสถานี oper fieldname StnSubType']
-  "stn_code" nvarchar(250) [null,note:'รหัสสถานี oper fieldname StnCode']
-  "station_name" nvarchar(250) [null,note:'ชื่อสถานี  oper fieldname StaNaG' ]
-  "freq_mhzg" nvarchar(50) [null,note:'ความถี่ oper fieldname FreqMhzG']
-  "stn_license" nvarchar(50) [null,note:'เลขที่ใบอนุญาต oper fieldname StaNoG']
-  "province" nvarchar(200) [null,note:'ชื่อจังหวัด oper fieldname Province']
-  "aumphoe" nvarchar(200) [null,note:'ชื่ออำเภอ oper fieldname Aumphoe']
-  "tambol" nvarchar(200) [null,note:'ชื่อตำบล oper fieldname Tambol']
-  "sta_locg" nvarchar(450) [null,note:'ที่ตั้งสถานี oper fieldname StaLocG']
-  "latitude" nvarchar(50) [null,note:'ละติจูด']
-  "longitude" nvarchar(50) [null,note:'ลองจิจูด']
-  "altitude_above_sealevel" nvarchar(50) [null,note:'ความสูงจากระดับน้ำทะเล']
-  "height_Of_aerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
-  "opinion_det" nvarchar(max) [null,note:'ผลการตรวจสอบ oper fieldname OpinionDet']
-  "equ_name" nvarchar(max) [null,note:'เครื่องมือวัด oper fieldname EquNames']
-  "docnfno_disp" datetime [null,note:'หนังสือแจ้งเตือน oper fieldname DocNFNo_Disp ']
-  "docnfno_date" datetime [null,note:'หนังสือแจ้งเตือนวันที่ oper fieldname DtDocNF_Disp']
-  "approve_status" nvarchar(11) [null,note:'สถานะ oper fieldname ApvStatus']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  note:"ตารางเก็บข้อมูลการตรวจสอบมาตรฐานการแพร่ [ข้อมูลจาก oper Table Name tbF11_RadProp]"
-  Indexes {
-  id [pk]
-}
-}
-
-Table "dbo"."Frequency_Disturbance_Report" {
-"id" int [not null, increment,note:'ID. ของ Frequency_Disturbance_Report']
-"chkid" int [not null,note:'ID การตรวจสอบของ oper fieldname ChkID']
-"add_date" datetime [note:'วันที่บันทึกจาก oper fieldname DtAdd']
-"region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
-"area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
-"station_name" nvarchar(100) [null,note:'ชื่อสถานีตรวจสอบ oper fieldname StaNaG']
-"stn_license" nvarchar(100) [null,note:'เลขที่ใบอนุญาต oper fieldname StaNoG']
-"province" nvarchar(100) [null,note:'ชื่อจังหวัด oper fieldname Province']
-"aumphoe" nvarchar(100) [null,note:'ชื่ออำเภอ oper fieldname Aumphoe']
-"tambol" nvarchar(250) [null,note:'ชื่อตำบล oper fieldname Tambol']
-"sta_locg" nvarchar(max) [null,note:'ที่ตั้ง oper fieldname StaLocG']
-"freq_src_type" nvarchar(200) [null,note:'ประเภทแหล่งกำเนิด oper fieldname FreqSrcType']
-"freq_mhzg" nvarchar(200) [null,note:'ความถี่ oper fieldname FreqMhzG']
-"latitude" nvarchar(50) [null,note:'ละติจูด']
-"longitude" nvarchar(50) [null,note:'ลองจิจูด']
-"altitude_above_sealevel" nvarchar(50) [null,note:'ความสูงจากระดับน้ำทะเล']
-"height_Of_aerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
- "diss_emitts" nvarchar(200) [null,note:'สาเหตุการรบกวน oper fieldname DisEmitts']
- "dist_rrk" nvarchar(max) [null,note:'รายละเอียดการรบกวน oper fieldname DistRrk']
- "dis_chk" nvarchar(max) [null,note:'ความเห็นผู้ตรวจ oper fieldname DisChk']
- "equ_names" nvarchar(max) [null,note:'เครื่องมือวัด oper fieldname EquNames']
- "dt_test" datetime [note:'วันที่ตรวจสอบ oper fieldname DtTest']
- "dt_rep" datetime [note:'วันที่รายงาน oper fieldname DtRep']
- "dt_apv" datetime [note:'วันที่อนุมัติ oper fieldname DtApv']
- "apv_status" nvarchar(11) [null,note:'สถานะ oper fieldname ApvStatus']
- "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
- note:"ตารางเก็บข้อมูลการตรวจสอบแก้ไขการรบกวนคลื่นวิทยุ [ข้อมูลจาก oper Table Name tbF12_DistbRad ]"
- Indexes {
-  id [pk]
-}
-}
-
-Table "dbo"."Frequency_NotAllow_Report" {
-  "id" int [not null, increment,note:'ID. ของ Frequency_NotAllow_Report']
-  "chkid" int [not null,note:'ID การตรวจสอบของ oper fieldname ChkID']
-  "chk_date" datetime [note:'วันที่ตรวจสอบจาก oper fieldname DtTest']
-  "region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
-  "area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
-  "station_name" nvarchar(250) [null,note:'ชื่อสถานี  oper fieldname StaNaG' ]
-  "freq_mhz" nvarchar(50) [null,note:'ความถี่ oper fieldname FreqMhzG']
-  "province" nvarchar(200) [null,note:'ชื่อจังหวัด oper fieldname Province']
-  "aumphoe" nvarchar(200) [null,note:'ชื่ออำเภอ oper fieldname Aumphoe']
-  "tambol" nvarchar(200) [null,note:'ชื่อตำบล oper fieldname Tambol']
-  "sta_locg" nvarchar(450) [null,note:'ที่ตั้งสถานี oper fieldname StaLocG']
-  "latitude" nvarchar(50) [null,note:'ละติจูด']
-  "longitude" nvarchar(50) [null,note:'ลองจิจูด']
-  "altitude_above_sealevel" nvarchar(50) [null,note:'ความสูงจากระดับน้ำทะเล']
-  "height_Of_aerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
-  "equ_names" nvarchar(max) [null,note:'เครื่องมือวัด oper fieldname EquNames']
-  "apv_status" nvarchar(11) [null,note:'สถานะ oper fieldname ApvStatus']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  note:"ตารางเก็บข้อมูลการตรวจสอบความถี่ที่ไม่ได้รับอนุญาต [ข้อมูลจาก oper Table Name tbF13_NotAllow]"
-  Indexes {
-  id [pk]
-}
-}
-
-Table "dbo"."Organization_Allocated_Spectrum" {
-  "id" int [not null, increment,note:'ID. ของ Organization_Allocated_Spectrum']
-  "tax_id" nvarchar(50) [null,note:'เลขที่ผู้เสียภาษี']
-  "freq_rage" nvarchar(50) [null,note:'ย่านความถี่']
-  "freq_1" nvarchar(50) [null,note:'คลื่นความถี่ (MHz)']
-  "freq_2" nvarchar(50) [null,note:'คู่คลื่นความถี่ (MHz)']
-  "rage" nvarchar(50) [null,note:'ย่านคลื่นความถี่ (MHz)']
-  "user_1" nvarchar(max) [null,note:'ผู้ใช้คลื่นความถี่']
-  "user_2" nvarchar(max) [null,note:'ผู้ให้ใช้คลื่นความถี่ร่วม']
-  "bandwidth" nvarchar(50) [null,note:'Bandwidth (kHz)']
-  "btype" nvarchar(max) [null,note:'กิจการวิทยุคมนาคม']
-  "usage" nvarchar(max) [null,note:'การนำไปใช้งาน']
-  "payment" decimal(20,4) [null,note:'ค่าตอบแทนคลื่นความถี่']
-  "fon" nvarchar(max) [null,note:'มติที่ประชุม/FON']
-  "doc_no" nvarchar(250) [null,note:'หนังสืออนุญาต ที่']
-  "permit_date" datetime [null,note:'วันที่อนุญาต']
-  "end_date" datetime [null,note:'วันสิ้นสุดการอนุญาต']
-  "period" nvarchar(50) [null,note:'ระยะเวลาการอนุญาต']
-  "remind_date" datetime [null,note:'เตือนให้ขอขยายเวลาใช้ความถี่ล่าสุด']
-  "status" nvarchar(50) [null,note:'สถานะปัจจุบัน']
-  "report_date" datetime [null,note:'วันที่รายงานล่าสุด']
-  "remark" nvarchar(max) [null,note:'รายละเอียดเพิ่มเติม']  
-  "result" text [null,note:'ข้อมูลผู้ใช้คลื่นความถี่']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
-  note:"ตารางเก็บข้อมูลหน่วยงานที่ได้รับการจัดสรรคลื่นความถี่ [ข้อมูลจาก Data Center]"
-  Indexes {
-  id [pk]
-}
-}
-
-Table "dbo"."Transmission_Tower_Station" {
-  "id" int [not null, increment,note:'ID. ของ Transmission_Tower_Station']
-  "region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
-  "area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
+Table "dbo"."Tower_BaseStation" {
+  "id" int [not null, increment,note:'ID. ของ Tower_BaseStation']
+  "info_region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
+  "info_area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
   "info_station_type_id" int [not null,note:'ID. ของ Info_Station_Type (FK.) สถานี ']
   "info_station_subtype_id" int [not null,note:'ID. ของ info_station_subtype (FK.) ประเภทสถานี']
   "station_code" nvarchar(50) [null,note:'รหัสสถานี']
@@ -841,14 +837,21 @@ Table "dbo"."Transmission_Tower_Station" {
   "longitude" nvarchar(50) [null,note:'พิกัด Long']
   "altitude_above_sealevel" nvarchar(50) [null,note:'ความสูงจากระดับน้ำทะเล']
   "height_Of_aerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
-  "created_date" datetime [not null,note:'วันที่ที่สร้างข้อมูล']
+  "created_date" datetime(2,7) [not null,note:'วันที่ที่สร้างข้อมูล']
   note:"ตารางเก็บข้อมูลสถานีเสาส่งโทรศัพท์มือถือ [ข้อมูลจาก Data Center]"
   Indexes {
   id [pk]
 }
 }
+
+
+
+Ref "FKHealth_Saf855281":"dbo"."Info_Region"."id" < "dbo"."Task_Event_log"."info_region_id"
+
+Ref "FKRadio_Emis890179":"dbo"."Info_Area"."id" < "dbo"."Task_Event_log"."info_area_id"
+
 Ref "Fk":"dbo"."Info_Frequency"."id" < "dbo"."Info_Frequency_Detail"."frequency_id"
-Ref "Fk":"dbo"."Info_Frequency"."id" < "dbo"."TCI_Data_Report"."frequency_id"
+Ref "Fk":"dbo"."Info_Frequency"."id" < "dbo"."TCI_Data_Maximum_Report"."frequency_id"
 
 Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Frequency_Emission_Report"."region_id"
 Ref "Fk":"dbo"."Info_Area"."id" < "dbo"."Frequency_Emission_Report"."area_id"
@@ -856,8 +859,8 @@ Ref "FK":"dbo"."Info_Station_Type"."id" < "dbo"."Frequency_Emission_Report"."sta
 Ref "FK":"dbo"."Info_Station_SubType"."id" < "dbo"."Frequency_Emission_Report"."station_subtype_id"
 
 
-Ref "FK":"dbo"."Info_Station_Type"."id" < "dbo"."Transmission_Tower_Station"."info_station_type_id"
-Ref "FK":"dbo"."Info_Station_SubType"."id" < "dbo"."Transmission_Tower_Station"."info_station_subtype_id"
+Ref "FK":"dbo"."Info_Station_Type"."id" < "dbo"."Tower_BaseStation"."info_station_type_id"
+Ref "FK":"dbo"."Info_Station_SubType"."id" < "dbo"."Tower_BaseStation"."info_station_subtype_id"
 
 
 Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Frequency_Disturbance_Report"."region_id"

@@ -152,6 +152,7 @@ Table "dbo"."Frequency_Emission_Report" {
   "stn_subtype" nvarchar(250) [null,note:'ประเภทสถานี oper fieldname StnSubType']
   "stn_code" nvarchar(250) [null,note:'รหัสสถานี oper fieldname StnCode']
   "station_name" nvarchar(250) [null,note:'ชื่อสถานี  oper fieldname StaNaG' ]
+  "src_type" nvarchar(250) [null,note:'ชื่อสถานี  oper fieldname StaNaG' ]
   "freq_mhzg" nvarchar(50) [null,note:'ความถี่ oper fieldname FreqMhzG']
   "stn_license" nvarchar(50) [null,note:'เลขที่ใบอนุญาต oper fieldname StaNoG']
   "province" nvarchar(200) [null,note:'ชื่อจังหวัด oper fieldname Province']
@@ -181,11 +182,12 @@ Table "dbo"."Frequency_NotAllow_Report" {
   "region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
   "area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
   "station_name" nvarchar(250) [null,note:'ชื่อสถานี  oper fieldname StaNaG' ]
-  "freq_mhz" nvarchar(50) [null,note:'ความถี่ oper fieldname FreqMhzG']
+  "frequency_mhz" nvarchar(50) [null,note:'ความถี่ oper fieldname FreqMhzG']
   "province" nvarchar(200) [null,note:'ชื่อจังหวัด oper fieldname Province']
   "aumphoe" nvarchar(200) [null,note:'ชื่ออำเภอ oper fieldname Aumphoe']
   "tambol" nvarchar(200) [null,note:'ชื่อตำบล oper fieldname Tambol']
   "sta_locg" nvarchar(450) [null,note:'ที่ตั้งสถานี oper fieldname StaLocG']
+  "opinion_det" nvarchar(max) [null,note:'ผลการตรวจสอบ oper fieldname OpinionDet']
   "latitude" nvarchar(50) [null,note:'ละติจูด']
   "longitude" nvarchar(50) [null,note:'ลองจิจูด']
   "altitude_above_sealevel" nvarchar(50) [null,note:'ความสูงจากระดับน้ำทะเล']
@@ -687,7 +689,7 @@ Table "dbo"."Task_Event_log" {
   "info_area_id" int [not null,note:'ID. ของ Info_Area (FK.)']
   "upload_dir_name" nvarchar(250) [not null,note:'ชื่อพาธที่เอาไฟล์ขึ้นไปเก็บ']
   "upload_file_name" nvarchar(250) [not null,note:'ชื่อไฟล์ขึ้นอัพโหลดขึ้นไปเก็บ']
-  "upload_file_size" float [not null,note:'ขนาดไฟล์ที่ทำการอัพโหลด']
+  "upload_file_size" float [not null,note:'ขนาดไฟล์ที่ทำการอัพโหลดหน่วยเป็น MB']
   "upload_file_ext" nvarchar(5) [not null,note:'นามสกุลไฟล์ที่ทำการอัพโหลด']
   "new_dir_name" nvarchar(250) [not null,note:'ชื่อพาธที่อ่านไฟล์เสร็จแล้วย้ายไปเก็บ']
   "new_file_name" nvarchar(250) [not null,note:'ชื่อไฟล์ที่อ่านเสร็จแล้วย้ายไปเก็บ ให้ใช้(_yyMMddHHmmss) ต่อท้าย']
@@ -813,30 +815,17 @@ Table "dbo"."Tower_BaseStation" {
   "id" int [not null, increment,note:'ID. ของ Tower_BaseStation']
   "info_region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
   "info_area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
-  "info_station_type_id" int [not null,note:'ID. ของ Info_Station_Type (FK.) สถานี ']
-  "info_station_subtype_id" int [not null,note:'ID. ของ info_station_subtype (FK.) ประเภทสถานี']
+  "station_subtype" nvarchar(100) [null,note:'ชื่อสถานีย่อย']
   "station_code" nvarchar(50) [null,note:'รหัสสถานี']
-  "station_name" nvarchar(150) [null,note:'ประเภทสถานี']
-  "frequency" nvarchar(50) [null,note:'ความถี่']
-  "frequency_unit" nvarchar(50) [null,note:'หน่วยความถี่']
-  "business_name" nvarchar(250) [null,note:'ชื่อผู้ประกอบการ']
-  "tax_invoice" nvarchar(50) [null,note:'เลขที่ผู้เสียภาษี']
-  "license_no" nvarchar(50) [null,note:'เลขที่ใบอนุญาต']
-  "business_type" nvarchar(250) [null,note:'ประเภทธุรกิจ']
-  "company_type" nvarchar(250) [null,note:'ประเภทหน่วยงาน']
-  "status" nvarchar(50) [null,note:'สถานะ']
-  "location" nvarchar(max) [null,note:'ที่ตั้ง']
-  "province" nvarchar(150) [null,note:'จังหวัด']
-  "aumphoe" nvarchar(150) [null,note:'อำเภอ']
+  "station_name" nvarchar(150) [null,note:'ชื่อสถานีตรวจสอบ']
+  "station_address" nvarchar(100) [null,note:'ที่ตั้งสถานี']
   "tambol" nvarchar(150) [null,note:'ตำบล']
+  "aumphoe" nvarchar(150) [null,note:'อำเภอ']
+  "province" nvarchar(150) [null,note:'จังหวัด']
   "zipcode" nvarchar(10) [null,note:'รหัสไปรษณีย์']
-  "source_data" nvarchar(50) [null,note:'แหล่งข้อมูล']
-  "contact_name" nvarchar(150) [null,note:'ผู้ประสานงาน']
-  "telephone" nvarchar(15) [null,note:'โทรศัพท์']
   "latitude" nvarchar(50) [null,note:'พิกัด Lat']
   "longitude" nvarchar(50) [null,note:'พิกัด Long']
-  "altitude_above_sealevel" nvarchar(50) [null,note:'ความสูงจากระดับน้ำทะเล']
-  "height_Of_aerial" nvarchar(50) [null,note:'ความสูงเสาอากาศ']
+  "source_data" nvarchar(50) [null,note:'แหล่งข้อมูล']
   "created_date" datetime(2,7) [not null,note:'วันที่ที่สร้างข้อมูล']
   note:"ตารางเก็บข้อมูลสถานีเสาส่งโทรศัพท์มือถือ [ข้อมูลจาก Data Center]"
   Indexes {
@@ -858,9 +847,6 @@ Ref "Fk":"dbo"."Info_Area"."id" < "dbo"."Frequency_Emission_Report"."area_id"
 Ref "FK":"dbo"."Info_Station_Type"."id" < "dbo"."Frequency_Emission_Report"."station_type_id"
 Ref "FK":"dbo"."Info_Station_SubType"."id" < "dbo"."Frequency_Emission_Report"."station_subtype_id"
 
-
-Ref "FK":"dbo"."Info_Station_Type"."id" < "dbo"."Tower_BaseStation"."info_station_type_id"
-Ref "FK":"dbo"."Info_Station_SubType"."id" < "dbo"."Tower_BaseStation"."info_station_subtype_id"
 
 
 Ref "Fk":"dbo"."Info_Region"."id" < "dbo"."Frequency_Disturbance_Report"."region_id"

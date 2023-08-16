@@ -77,6 +77,8 @@ Table "dbo"."EMF_Measurement_Report" {
   "report_month" int [not null,note:'เดือนของข้อมูลการตรวจวัด']
   "report_date" int [not null,note:'วันที่ของข้อมูลการตรวจวัด']
   "report_quarter" int [not null,note:'ไตรมาสของข้อมูลการตรวจวัด']
+  "info_region_id" int [not null,note:'ID. ของภาคในกสทช.[FK]']
+  "info_area_id" int [not null,note:'ID. ของเขตพื้นที่ในกสทช. [FK]']
   "selection" nvarchar(100) [null,note:'เก็บข้อมูล Text "Unchecked,checked"']
   "measured_date" datetime(2,7) [null,note:'วันที่เวลาที่ทำการตรวจสอบข้อมูล']
   "measured_time" datetime(2,7) [null,note:'วันที่เวลาที่ทำการตรวจสอบข้อมูล']
@@ -421,6 +423,23 @@ Indexes {
 }
 }
 
+Table "dbo"."Info_Opinion_Det" {
+  "id" int [not null, increment,note:'ID.Info_Opinion_Det']
+  "opinion_det_name" nvarchar(50) [not null,note:'ชื่อผลการตรวจสอบมาตฐานการแพร่']
+  "created_by" nvarchar(50) [null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [null,note:'ชื่อของผู้ลบข้อมูล']
+  "deleted_date" datetime(2,7) [null,note:'วันที่ที่ลบข้อมูล']
+  "status" varchar(1) [not null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
+  note:"ตารางเก็บข้อมูลผลการตรวจสอบมาตฐานการแพร่"
+Indexes {
+  id [pk]
+}
+}
+
+
 Table "dbo"."Info_Province" {
   "id" int [not null,note:'ID. ของจังหวัด']
   "geography_id" int [not null,note:'ID. ของภูมิภาค (FK.)']
@@ -477,6 +496,27 @@ Indexes {
   id [pk]
 }
 }
+
+Table "dbo"."Info_Station_EMF" {
+  "id" int [not null, increment,note:'ID. ของสถานีตรวจ EMF']
+  "emf_station_name_th" int [not null,note:'ชื่อสถานีภาษาไทย']
+  "emf_station_name_en" nvarchar(100) [not null,note:'ชื่อภาษาอังกฤษ']
+  "info_area_id" nvarchar(100) [not null,note:'ID รหัสของเขต']
+  "latitude" float [null,note:'ละติจูด']
+  "longitude" float [null,note:'ลองจิจูด']
+  "created_by" nvarchar(50) [ null,note:'ชื่อของผู้สร้างข้อมูล']
+  "created_date" datetime(2,7) [ null,note:'วันที่ที่สร้างข้อมูล']
+  "modified_by" nvarchar(50) [ null,note:'ชื่อของผู้ปรับปรุงข้อมูล']
+  "modified_date" datetime(2,7) [ null,note:'วันที่ที่ปรับปรุงข้อมูล']
+  "deleted_by" nvarchar(50) [ null,note:'ชื่อของผู้บข้อมูล']
+  "deleted_date" datetime(2,7) [ null,note:'วันที่ที่ลบข้อมูล']
+  "status" varchar(1) [ null,note:'สถานะของข้อมูล ( A = Active, I = Inactive, D = Delete )']
+   note:"ตารางเก็บข้อมูลสถานีตรวจสอบ EMF"
+Indexes {
+  id [pk]
+}
+}
+
 
 Table "dbo"."Info_Station_SubType" {
   "id" int [not null, increment,note:'ID. ของประเภทสถานีย่อย']
@@ -833,7 +873,9 @@ Table "dbo"."Tower_BaseStation" {
 }
 }
 
+Ref "FK":"dbo"."Info_Region"."id" < "dbo"."EMF_Measurement_Report"."info_region_id"
 
+Ref "FK":"dbo"."Info_Area"."id" < "dbo"."EMF_Measurement_Report"."info_area_id"
 
 Ref "FKHealth_Saf855281":"dbo"."Info_Region"."id" < "dbo"."Task_Event_log"."info_region_id"
 
